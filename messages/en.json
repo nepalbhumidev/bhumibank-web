@@ -1,0 +1,75 @@
+{
+    "HomePage": {
+        "slogan": "Developing the Land, Building the Future"
+    },
+    "Navigation": {
+        "Home": "Home",
+        "About": "About",
+        "Media": "Media",
+        "Gallery": "Gallery",
+        "Activities": "Activities",
+        "Team": "Team",
+        "Other": "Other",
+        "Reach Us": "Reach Us",
+        "Information": "Information",
+        "What we do": "What we do",
+        "Notices": "Notices",
+        "Publications": "Publications"
+    },
+    "FeaturesSection": {
+        "heading": "The Company",
+        "description": "Nepal Bhumi Bank Limited is a pioneering land banking institution dedicated to fostering sustainable development across Nepal. Established with a vision to transform uneven terrains into thriving, eco-friendly communities, we specialize in acquiring, developing, and distributing properties equipped with modern amenities such as schools, hospitals, parks, and utilities. Our commitment to environmental conservation ensures that every project balances growth with nature's preservation, while offering flexible investment opportunities and transparent transactions tailored to our clients' needs. With a focus on nationwide partnerships and social responsibility, we aim to build a prosperous Nepal where land becomes a secure asset for generations to come.",
+        "sustainableLandDevelopment": {
+            "title": "Sustainable Land Development",
+            "description": "To develop modern, amenity-rich settlements across Nepal while conserving the environment and natural resources, and to sell or rent them for public benefit."
+        },
+        "propertyAcquisition": {
+            "title": "Property Acquisition and Enhancement",
+            "description": "To purchase uneven or sloped lands, develop them into valuable properties, and facilitate their sale or distribution."
+        },
+        "investmentPartnership": {
+            "title": "Investment and Partnership Expansion",
+            "description": "To invest in land banking, partnerships, and related sectors nationwide, promoting economic growth through green development and social responsibility."
+        }
+    },
+    "VideoSection": {
+        "heading": "Videos"
+    },
+    "NewsSection": {
+        "heading": "Latest News",
+        "readMore": "Read More"
+    },
+    "InvestSection": {
+        "heading": "Root Riches in Bhumi – Invest & Thrive!",
+        "content": "Join Nepal Bhumi Bank Limited and become a part of Nepal's sustainable growth story. By investing with us, you're not just securing financial returns – you're contributing to eco-friendly land development, modern communities, and a greener future. With transparent opportunities in property acquisition, sales, and partnerships, your investment helps build thriving settlements while ensuring long-term value and social impact. Let's cultivate prosperity together!",
+        "applicationForm": "Application Form",
+        "publications": "Publications"
+    },
+    "Footer": {
+        "bankName": "Nepal Bhumi Bank Limited",
+        "slogan": "Developing the Land, Building the Future",
+        "information": "Information",
+        "informationLinksList": {
+            "aboutUs": "About Us",
+            "whatWeDo": "What We Do",
+            "information": "Information",
+            "career": "Career",
+            "notices": "Notices"
+        },
+        "contact": "Contact",
+        "phone": "Phone",
+        "phoneNumber": "01-5320913, 01-5909612",
+        "whatsapp": "WhatsApp: 977-9741802661",
+        "email": "Email",
+        "email1": "info@nbb.com.np",
+        "email2": "info.rastriyakhadyabank@gmail.com",
+        "address": "Address",
+        "addressDetail": "Lalitpur, Nepal",
+        "president": "President",
+        "presidentName": "Mrs.Pabitra Kumari Pokhrel",
+        "pan": "PAN",
+        "panNumber": "623517864",
+        "regNo": "Reg No.",
+        "regNumber": "382469/82/83"
+    }
+}
