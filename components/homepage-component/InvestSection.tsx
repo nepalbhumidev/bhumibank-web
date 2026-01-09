@@ -18,7 +18,7 @@ const InvestSection = () => {
               {t('heading')}
             </h2>
             <div className="flex justify-end">
-              <ColorBand />
+              <ColorBand className="mt-3" />
             </div>
           </div>
         </div>

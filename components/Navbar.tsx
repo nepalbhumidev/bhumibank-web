@@ -17,9 +17,9 @@ const Navbar = () => {
             <div className="flex items-center gap-4">
               {/* Logo */}
               <div className="flex-shrink-0">
-                <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center overflow-hidden">
+                <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center overflow-hidden">
                   <Image
-                    src="/nbb-logo.png"
+                    src="/nbb-logo.svg"
                     alt="Nepal Bhumi Bank Limited Logo"
                     width={80}
                     height={80}

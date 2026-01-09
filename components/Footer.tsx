@@ -41,11 +41,11 @@ const Footer = () => {
               {/* Logo */}
               <div className="mb-4">
                 <Image
-                  src="/nbb-logo.png"
+                  src="/nbb-logo.svg"
                   alt="Nepal Bhumi Bank Limited Logo"
                   width={120}
                   height={120}
-                  className="w-32 h-32 md:w-36 md:h-36 object-contain rounded-full"
+                  className="w-32 h-32 md:w-36 md:h-36 object-contain rounded-full bg-white"
                 />
               </div>
 

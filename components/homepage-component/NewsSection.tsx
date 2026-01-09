@@ -67,6 +67,20 @@ const NewsSection = () => {
       title: 'Eco-Friendly Community Development Initiative',
       description: 'Launch of new eco-friendly community development project with modern amenities...',
     },
+    {
+    id: '5',
+    image: '/caorusel-images/item-2.png',
+    date: '4 Jan, 2026',
+    title: 'New Property Acquisition Project Announced',
+    description: 'Major property acquisition initiative to transform uneven terrains into thriving communities...',
+    },
+    {
+      id: '6',
+      image: '/caorusel-images/item-3.png',
+      date: '31 Dec, 2025',
+      title: 'Annual General Meeting Held Successfully',
+      description: 'Shareholders gather for the annual general meeting to discuss future growth strategies...',
+    },
   ];
 
   const maxIndex = Math.max(0, newsItems.length - itemsPerView);
@@ -112,27 +126,27 @@ const NewsSection = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-white">
               {t('heading')}
             </h2>
-            <ColorBand />
+            <ColorBand rightColor="secondary"/>
           </div>
         </div>
 
         {/* News Carousel */}
-        <div className="relative bg-white">
+        <div className="relative">
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 z-20 bg-white hover:bg-gray-300 text-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl items-center justify-center"
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 bg-white hover:bg-gray-300 text-secondary p-1 rounded-full transition-all duration-300 hover:shadow-xl items-center justify-center border-3 border-secondary"
             aria-label="Previous news"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-8 h-8" />
           </button>
 
           <button
             onClick={goToNext}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 z-20 bg-white hover:bg-gray-300 text-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl items-center justify-center"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 bg-white hover:bg-gray-300 text-secondary p-1 rounded-full transition-all duration-300 hover:shadow-xl items-center justify-center border-3 border-secondary"
             aria-label="Next news"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-8 h-8" />
           </button>
 
           {/* Carousel Container */}
@@ -151,13 +165,13 @@ const NewsSection = () => {
               {newsItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex-shrink-0"
-                  style={{ width: `${100 / itemsPerView}%`, paddingRight: '1.5rem' }}
+                  className="flex-shrink-0 px-2"
+                  style={{ width: `${100 / itemsPerView}%`}}
                 >
                   <div className="h-full">
-                    <div className="group bg-white border border-white/20 hover:bg-primary hover:border-white transition-all duration-300 overflow-hidden h-full flex flex-col shadow-md cursor-pointer">
+                    <div className="group bg-white border border-b-0 border-white hover:bg-primary transition-all duration-300 overflow-hidden h-full flex flex-col shadow-md cursor-pointer">
                       {/* Image Container */}
-                      <div className="relative w-full h-32 overflow-hidden">
+                      <div className="relative aspect-[16/9] overflow-hidden">
                         <Image
                           src={item.image}
                           alt={item.title}
@@ -172,22 +186,21 @@ const NewsSection = () => {
 
                       {/* Content */}
                       <div className="flex-1 p-4 flex flex-col">
-                        <h3 className="text-base font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-300 line-clamp-2">
+                        <h3 className="text-md md:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-300 line-clamp-2">
                           {item.title}
                         </h3>
-                        <p className="text-sm text-gray-600 group-hover:text-white/90 mb-3 flex-1 transition-colors duration-300 line-clamp-2">
+                        <p className="text-sm md:text-base lg:text-lg text-gray-600 group-hover:text-white/90 mb-3 flex-1 transition-colors duration-300 line-clamp-3">
                           {item.description}
                         </p>
                         
                         {/* Read More Button */}
-                        <button className="self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-xs font-medium rounded hover:bg-secondary/90 transition-colors">
+                        <button className="self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base font-medium rounded hover:bg-secondary/90 transition-colors">
                           {t('readMore')}
                           <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
-
                       {/* Bottom Band */}
-                      <div className="h-1 bg-secondary"></div>
+                      <div className="h-2 bg-secondary"></div>
                     </div>
                   </div>
                 </div>
