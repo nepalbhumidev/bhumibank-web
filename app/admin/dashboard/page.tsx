@@ -1,17 +1,61 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { LogOut } from 'lucide-react';
 import ColorBand from '@/components/ColorBand';
+import { getCurrentUser, clearAuth, isAuthenticated, isAdmin } from '@/lib/auth-client';
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const [user, setUser] = useState(getCurrentUser());
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Check authentication
+    if (!isAuthenticated()) {
+      router.push('/admin');
+      return;
+    }
+
+    const currentUser = getCurrentUser();
+    
+    if (!currentUser) {
+      router.push('/admin');
+      return;
+    }
+
+    // Check if user is admin
+    if (!isAdmin()) {
+      router.push('/admin');
+      return;
+    }
+
+    setUser(currentUser);
+    setIsLoading(false);
+  }, [router]);
 
   const handleLogout = () => {
-    // TODO: Add logout logic here
+    clearAuth();
     router.push('/admin');
+    router.refresh();
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // Will redirect in useEffect
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -27,7 +71,12 @@ export default function AdminDashboard() {
                 height={40}
                 className="w-10 h-10 object-contain"
               />
-              <h1 className="text-xl font-bold">Admin Dashboard</h1>
+              <div>
+                <h1 className="text-xl font-bold">Admin Dashboard</h1>
+                {user && (
+                  <p className="text-xs text-white/80">{user.full_name || user.username}</p>
+                )}
+              </div>
             </div>
             <button
               onClick={handleLogout}
