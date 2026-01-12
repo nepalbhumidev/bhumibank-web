@@ -156,7 +156,7 @@ const TestimonialsSection = () => {
                         </div>
 
                         {/* Testimonial Text */}
-                        <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-6 flex-1">
+                        <p className="text-gray-700 text-sm md:text-base text-justify mb-6 flex-1">
                           {t(`${testimonial.id}.text`)}
                         </p>
 

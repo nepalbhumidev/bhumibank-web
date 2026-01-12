@@ -121,33 +121,36 @@ const NewsSection = () => {
     <section className="py-12 md:py-16 lg:py-20 bg-primary relative">
       <div className="wrapper relative z-10">
         {/* Heading */}
-        <div className="mb-10 md:mb-16">
+        <div className="mb-10 md:mb-16 relative">
           <div className="inline-block">
             <h2 className="text-4xl lg:text-5xl font-bold text-white">
               {t('heading')}
             </h2>
             <ColorBand rightColor="secondary"/>
           </div>
+          
+          {/* Navigation Controls - Desktop */}
+          <div className="hidden md:flex items-center gap-3 absolute bottom-0 right-0">
+            <button
+              onClick={goToPrevious}
+              className="w-12 h-12 rounded-full bg-white border-2 border-white hover:border-secondary hover:bg-secondary text-primary flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Previous news"
+              disabled={currentIndex === 0}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="w-12 h-12 rounded-full bg-secondary text-white hover:bg-secondary/90 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl"
+              aria-label="Next news"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {/* News Carousel */}
         <div className="relative">
-          {/* Navigation Arrows */}
-          <button
-            onClick={goToPrevious}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 bg-white hover:bg-gray-300 text-secondary p-1 rounded-full transition-all duration-300 hover:shadow-xl items-center justify-center border-3 border-secondary"
-            aria-label="Previous news"
-          >
-            <ChevronLeft className="w-8 h-8" />
-          </button>
-
-          <button
-            onClick={goToNext}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 bg-white hover:bg-gray-300 text-secondary p-1 rounded-full transition-all duration-300 hover:shadow-xl items-center justify-center border-3 border-secondary"
-            aria-label="Next news"
-          >
-            <ChevronRight className="w-8 h-8" />
-          </button>
 
           {/* Carousel Container */}
           <div
@@ -189,7 +192,7 @@ const NewsSection = () => {
                         <h3 className="text-md md:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-300 line-clamp-2">
                           {item.title}
                         </h3>
-                        <p className="text-sm md:text-base lg:text-lg text-gray-600 group-hover:text-white/90 mb-3 flex-1 transition-colors duration-300 line-clamp-3">
+                        <p className="text-gray-700 text-sm md:text-base text-gray-600 group-hover:text-white/90 mb-3 flex-1 transition-colors duration-300 line-clamp-3">
                           {item.description}
                         </p>
                         

@@ -43,7 +43,7 @@ const InvestSection = () => {
           {/* Content Section */}
           <div>
             <div className="text-justify space-y-6">
-              <p className="text-gray-700 text-sm md:text-base lg:text-lg leading-relaxed">
+              <p className="text-gray-700 text-sm md:text-base leading-relaxed">
                 {t('content')}
               </p>
               
