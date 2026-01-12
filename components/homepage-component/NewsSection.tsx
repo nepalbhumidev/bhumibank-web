@@ -93,6 +93,20 @@ const NewsSection = () => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
+  // Autoscroll every 5 seconds
+  useEffect(() => {
+    if (newsItems.length <= itemsPerView) return; // Don't autoscroll if all items are visible
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const nextIndex = prev >= maxIndex ? 0 : prev + 1;
+        return nextIndex;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [maxIndex, itemsPerView, newsItems.length]);
+
   // Touch event handlers for swipe
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(0);

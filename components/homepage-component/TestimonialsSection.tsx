@@ -32,6 +32,20 @@ const TestimonialsSection = () => {
 
   const maxIndex = Math.max(0, testimonials.length - itemsPerView);
 
+  // Autoscroll every 5 seconds
+  useEffect(() => {
+    if (testimonials.length <= itemsPerView) return; // Don't autoscroll if all items are visible
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const nextIndex = prev >= maxIndex ? 0 : prev + 1;
+        return nextIndex;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [maxIndex, itemsPerView, testimonials.length]);
+
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
   };
@@ -151,7 +165,7 @@ const TestimonialsSection = () => {
                       {/* Content */}
                       <div className="relative z-10 flex flex-col flex-1">
                         {/* Star Rating */}
-                        <div className="flex items-end justify-end gap-1 mb-8 md:mb-6">
+                        <div className="flex items-end justify-end gap-1 mb-10 md:mb-8">
                           {renderStars(testimonial.rating)}
                         </div>
 
