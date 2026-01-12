@@ -86,7 +86,7 @@ const TestimonialsSection = () => {
     <section className="relative py-12 md:py-16 lg:py-20 bg-white overflow-hidden">
       <div className="wrapper relative z-10">
         {/* Header Section */}
-        <div className="mb-10 md:mb-16">
+        <div className="mb-10 md:mb-16 relative">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             {/* Title and Subtitle */}
             <div className="flex-shrink-0">
@@ -98,47 +98,30 @@ const TestimonialsSection = () => {
                 {t('subtitle')}
               </p>
             </div>
-
-            {/* Navigation Controls - Desktop */}
-            <div className="hidden md:flex items-center gap-3">
-              <button
-                onClick={goToPrevious}
-                className="w-12 h-12 rounded-full bg-white border-2 border-gray-200 hover:border-primary hover:bg-primary hover:text-white text-gray-600 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Previous testimonial"
-                disabled={currentIndex === 0}
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button
-                onClick={goToNext}
-                className="w-12 h-12 rounded-full bg-primary text-white hover:bg-primary/90 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
+          </div>
+          
+          {/* Navigation Controls - Desktop */}
+          <div className="hidden md:flex items-center gap-3 absolute bottom-0 right-0">
+            <button
+              onClick={goToPrevious}
+              className="w-12 h-12 rounded-full bg-white border-2 border-gray-200 hover:border-primary hover:bg-primary hover:text-white text-gray-600 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Previous testimonial"
+              disabled={currentIndex === 0}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="w-12 h-12 rounded-full bg-primary text-white hover:bg-primary/90 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
           </div>
         </div>
 
         {/* Testimonials Carousel */}
         <div className="relative">
-          {/* Navigation Arrows - Mobile (positioned on sides) */}
-          <button
-            onClick={goToPrevious}
-            className="md:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 bg-white hover:bg-gray-100 text-primary p-2 rounded-full transition-all duration-300 shadow-lg items-center justify-center border-2 border-primary"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          <button
-            onClick={goToNext}
-            className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 bg-primary text-white hover:bg-primary/90 p-2 rounded-full transition-all duration-300 shadow-lg items-center justify-center"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
           {/* Carousel Container */}
           <div
             className="overflow-hidden mx-4 md:mx-0"
