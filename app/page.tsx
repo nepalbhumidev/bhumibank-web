@@ -6,6 +6,7 @@ import TestimonialsSection from "../components/homepage-component/TestimonialsSe
 import VideoSection from "../components/homepage-component/VideoSection";
 import NewsSection from "../components/homepage-component/NewsSection";
 import Footer from "../components/Footer";
+import StickyActions from "../components/StickyActions";
 // import {useTranslations} from 'next-intl';
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <VideoSection />
       <TestimonialsSection />
       <Footer />
+      <StickyActions />
     </>
   );
 }
