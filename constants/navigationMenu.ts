@@ -12,7 +12,7 @@ export const menuItems: MenuItem[] = [
     hasDropdown: true,
     dropdownItems: [
       { name: 'Information', href: '/about/overview' },
-      { name: 'What we do', href: '/about/team' },
+      { name: 'What we do', href: '/about/what-we-do' },
     ]
   },
   { 

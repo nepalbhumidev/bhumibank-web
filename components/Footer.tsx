@@ -9,11 +9,10 @@ const Footer = () => {
   const t = useTranslations('Footer');
 
   const informationLinks = [
-    { key: 'aboutUs', href: '#' },
-    { key: 'whatWeDo', href: '#' },
-    { key: 'information', href: '#' },
-    { key: 'career', href: '#' },
-    { key: 'notices', href: '#' },
+    { key: 'whatWeDo', href: 'about/what-we-do' },
+    { key: 'information', href: '/about/overview' },
+    { key: 'publications', href: '/events/publications' },
+    { key: 'notices', href: '/events/notices' },
   ];
 
   return (
