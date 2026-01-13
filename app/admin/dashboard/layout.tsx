@@ -72,7 +72,7 @@ export default function DashboardLayout({
                 alt="Nepal Bhumi Bank Limited Logo"
                 width={32}
                 height={32}
-                className="w-8 h-8 object-contain"
+                className="w-10 h-10 object-contain"
               />
             </div>
             {!sidebarCollapsed && (
@@ -114,17 +114,7 @@ export default function DashboardLayout({
 
         {/* Bottom Actions */}
         <div className= "p-2 border-t border-gray-200 space-y-1">
-          <button
-            onClick={handleLogout}
-            className={`flex items-center ${
-              sidebarCollapsed ? 'justify-center px-0' : 'gap-3 px-3'
-            } py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 w-full transition-colors`}
-            title={sidebarCollapsed ? 'Logout' : undefined}
-          >
-            <LogOut className="w-5 h-5 text-gray-400" />
-            {!sidebarCollapsed && <span className="text-sm font-medium">Logout</span>}
-          </button>
-          <button
+        <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             className={`flex items-center ${
               sidebarCollapsed ? 'justify-center px-0' : 'gap-3 px-3'
@@ -137,6 +127,16 @@ export default function DashboardLayout({
               <PanelLeftClose className="w-5 h-5 text-gray-400" />
             )}
             {!sidebarCollapsed && <span className="text-sm font-medium">Collapse</span>}
+          </button>
+          <button
+            onClick={handleLogout}
+            className={`flex items-center ${
+              sidebarCollapsed ? 'justify-center px-0' : 'gap-3 px-3'
+            } py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 w-full transition-colors`}
+            title={sidebarCollapsed ? 'Logout' : undefined}
+          >
+            <LogOut className="w-5 h-5 text-gray-400" />
+            {!sidebarCollapsed && <span className="text-sm font-medium">Logout</span>}
           </button>
         </div>
       </aside>

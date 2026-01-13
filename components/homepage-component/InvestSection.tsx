@@ -60,7 +60,7 @@ const InvestSection = () => {
                   href="#"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-medium rounded hover:bg-secondary/90 transition-colors text-sm md:text-base"
                 >
-                  {t('publications')}
+                  {t('clientForm')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
