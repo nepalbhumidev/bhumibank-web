@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,7 +15,7 @@ import {
   PanelLeftOpen,
   LogOut
 } from 'lucide-react';
-import { clearAuth } from '@/lib/auth-client';
+import { clearAuth, isAuthenticated, isAdmin } from '@/lib/auth-client';
 
 interface MenuItem {
   name: string;
@@ -27,7 +27,7 @@ const menuItems: MenuItem[] = [
   { name: 'Overview', href: '/admin/dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
   { name: 'Notices', href: '/admin/dashboard/notices', icon: <FileText className="w-5 h-5" /> },
   { name: 'Publications', href: '/admin/dashboard/publications', icon: <BookOpen className="w-5 h-5" /> },
-  { name: 'Media', href: '/admin/dashboard/media', icon: <ImageIcon className="w-5 h-5" /> },
+  { name: 'News/Media', href: '/admin/dashboard/media', icon: <ImageIcon className="w-5 h-5" /> },
   { name: 'Videos', href: '/admin/dashboard/videos', icon: <Video className="w-5 h-5" /> },
   { name: 'Gallery', href: '/admin/dashboard/gallery', icon: <Images className="w-5 h-5" /> },
 ];
@@ -41,12 +41,12 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-  // useEffect(() => {
-  //   // Client-side auth check
-  //   if (!isAuthenticated() || !isAdmin()) {
-  //     router.push('/admin');
-  //   }
-  // }, [router]);
+  useEffect(() => {
+    // Client-side auth check
+    if (!isAuthenticated() || !isAdmin()) {
+      router.push('/admin');
+    }
+  }, [router]);
 
   const handleLogout = () => {
     clearAuth();

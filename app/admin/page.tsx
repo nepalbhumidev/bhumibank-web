@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
 import ColorBand from '@/components/ColorBand';
-import { setAuth } from '@/lib/auth-client';
+import { isAdmin, isAuthenticated, setAuth } from '@/lib/auth-client';
 import { getApiUrl } from '@/lib/api-client';
 
 export default function AdminLoginPage() {
@@ -59,6 +59,13 @@ export default function AdminLoginPage() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Client-side auth check
+    if (isAuthenticated() || isAdmin()) {
+      router.push('/admin/dashboard');
+    }
+  }, [router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
