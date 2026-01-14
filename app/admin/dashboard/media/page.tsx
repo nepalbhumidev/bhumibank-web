@@ -23,6 +23,7 @@ import Image from 'next/image';
 interface Blog {
   id: string;
   title: string;
+  title_np?: string;
   content?: string;
   author?: string;
   published_date?: string;
@@ -42,10 +43,10 @@ interface Blog {
 
 interface BlogFormData {
   title: string;
+  title_np: string;
   content: string;
   is_published: boolean;
   published_date: string;
-  slug: string;
   images: File[];
   seo_data?: {
     meta_title?: string;
@@ -54,6 +55,22 @@ interface BlogFormData {
     canonical_url?: string;
   };
 }
+
+// Initial form data helper
+const getInitialFormData = (): BlogFormData => ({
+  title: '',
+  title_np: '',
+  content: '',
+  is_published: false,
+  published_date: new Date().toISOString().split('T')[0],
+  images: [],
+  seo_data: {
+    meta_title: '',
+    meta_description: '',
+    meta_keywords: '',
+    canonical_url: '',
+  },
+});
 
 export default function MediaPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -73,20 +90,7 @@ export default function MediaPage() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   
   // Form state
-  const [formData, setFormData] = useState<BlogFormData>({
-    title: '',
-    content: '',
-    is_published: false,
-    published_date: new Date().toISOString().split('T')[0],
-    slug: '',
-    images: [],
-    seo_data: {
-      meta_title: '',
-      meta_description: '',
-      meta_keywords: '',
-      canonical_url: '',
-    },
-  });
+  const [formData, setFormData] = useState<BlogFormData>(() => getInitialFormData());
   
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
@@ -116,13 +120,8 @@ export default function MediaPage() {
       const data = await response.json();
       setBlogs(Array.isArray(data) ? data : []);
       
-      // For now, if we get less than pageSize, we're on the last page
-      // In production, you'd want the API to return total count
-      if (data.length < pageSize) {
-        setTotalPages(currentPage + 1);
-      } else {
-        setTotalPages(currentPage + 2); // Assume there's at least one more page
-      }
+      // Simple pagination: if we get less than pageSize, we're on the last page
+      setTotalPages(data.length < pageSize ? currentPage + 1 : currentPage + 2);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -137,7 +136,7 @@ export default function MediaPage() {
   // Filter blogs based on search
   const filteredBlogs = blogs.filter(blog =>
     blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    blog.slug?.toLowerCase().includes(searchQuery.toLowerCase())
+    blog.title_np?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Open create modal
@@ -145,23 +144,31 @@ export default function MediaPage() {
     setIsEditing(false);
     setEditingBlogId(null);
     setFormError('');
-    setFormData({
-      title: '',
-      content: '',
-      is_published: false,
-      published_date: new Date().toISOString().split('T')[0],
-      slug: '',
-      images: [],
-      seo_data: {
-        meta_title: '',
-        meta_description: '',
-        meta_keywords: '',
-        canonical_url: '',
-      },
-    });
+    setFormData(getInitialFormData());
     setPreviewImages([]);
     setExistingImages([]);
     setIsModalOpen(true);
+  };
+
+  // Extract date part from ISO string (YYYY-MM-DD) to avoid timezone issues
+  const extractDatePart = (dateString: string): string => {
+    if (!dateString) return '';
+    const dateStr = dateString.toString();
+    if (dateStr.includes('T')) {
+      return dateStr.split('T')[0];
+    }
+    if (dateStr.match(/^\d{4}-\d{2}-\d{2}/)) {
+      return dateStr.substring(0, 10);
+    }
+    try {
+      const date = new Date(dateStr);
+      const year = date.getUTCFullYear();
+      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    } catch {
+      return '';
+    }
   };
 
   // Open edit modal
@@ -170,19 +177,12 @@ export default function MediaPage() {
     setEditingBlogId(blog.id);
     setFormError('');
     
-    // Handle published_date: Only set if it exists, otherwise leave empty
-    // Backend will set it to current time if is_published is true but no date provided
-    let publishedDate = '';
-    if (blog.published_date) {
-      publishedDate = new Date(blog.published_date).toISOString().split('T')[0];
-    }
-    
     setFormData({
       title: blog.title || '',
+      title_np: blog.title_np || '',
       content: blog.content || '',
-      is_published: blog.is_published || false,
-      published_date: publishedDate,
-      slug: blog.slug || '',
+      is_published: blog.is_published === true,
+      published_date: extractDatePart(blog.published_date || ''),
       images: [],
       seo_data: blog.seo_data || {
         meta_title: '',
@@ -191,6 +191,7 @@ export default function MediaPage() {
         canonical_url: '',
       },
     });
+    
     setExistingImages(blog.image_urls || (blog.image_url ? [blog.image_url] : []));
     setPreviewImages([]);
     setIsModalOpen(true);
@@ -218,53 +219,9 @@ export default function MediaPage() {
     setPreviewImages(previewImages.filter((_, i) => i !== index));
   };
 
-  // Remove existing image (Note: API will keep existing images if no new ones are sent)
-  // To actually remove, you'd need to send new images to replace
+  // Remove existing image from UI (user must add new images to replace)
   const removeExistingImage = (index: number) => {
-    // For now, just remove from UI - in a real scenario, you might want to track
-    // which images to keep/remove and send appropriate data to API
     setExistingImages(existingImages.filter((_, i) => i !== index));
-  };
-
-  // Generate slug from title (matches backend implementation)
-  const generateSlug = (title: string) => {
-    if (!title) return '';
-    
-    // Convert to lowercase
-    let slug = title.toLowerCase();
-    
-    // Replace spaces and underscores with hyphens
-    slug = slug.replace(/[\s_]+/g, '-');
-    
-    // Remove special characters, keep only alphanumeric and hyphens
-    slug = slug.replace(/[^a-z0-9\-]/g, '');
-    
-    // Replace multiple consecutive hyphens with a single hyphen
-    slug = slug.replace(/-+/g, '-');
-    
-    // Strip hyphens from start and end
-    slug = slug.replace(/^-+|-+$/g, '');
-    
-    return slug;
-  };
-
-  // Handle title change and auto-generate slug (as preview only)
-  const handleTitleChange = (title: string) => {
-    const currentSlug = formData.slug || '';
-    const oldGeneratedSlug = generateSlug(formData.title);
-    const newGeneratedSlug = generateSlug(title);
-    
-    // Only auto-update slug if:
-    // 1. Slug is empty, OR
-    // 2. Slug matches what was auto-generated from the old title (meaning it was auto-generated)
-    const wasAutoGenerated = currentSlug === oldGeneratedSlug;
-    
-    setFormData({
-      ...formData,
-      title,
-      // Update slug only if it was empty or auto-generated
-      slug: (!currentSlug || wasAutoGenerated) ? newGeneratedSlug : currentSlug,
-    });
   };
 
   // Submit form
@@ -295,39 +252,30 @@ export default function MediaPage() {
       
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title);
+      
+      // Add Nepali title if provided
+      if (formData.title_np && formData.title_np.trim()) {
+        formDataToSend.append('title_np', formData.title_np.trim());
+      }
+      
       formDataToSend.append('content', formData.content);
       formDataToSend.append('is_published', formData.is_published ? 'true' : 'false');
       
-      // Handle published_date: Only send if provided, backend will set to current time if is_published is true
-      if (formData.published_date) {
-        formDataToSend.append('published_date', formData.published_date);
-      }
-      
-      // Slug handling:
-      // - For create: Only send if user customized it, backend will generate if not provided
-      // - For update: Only send if explicitly provided, backend will regenerate if title changed and slug not provided
+      // Handle published_date: When editing and saving as draft, don't send published_date
+      // so backend can properly handle the is_published update
       if (isEditing) {
-        // For updates, only send slug if user explicitly provided one
-        // If not sent and title changed, backend will regenerate slug
-        if (formData.slug && formData.slug.trim()) {
-          formDataToSend.append('slug', formData.slug.trim());
+        if (formData.is_published && formData.published_date?.trim()) {
+          formDataToSend.append('published_date', formData.published_date.trim());
         }
-      } else {
-        // For create, only send if user customized it
-        if (formData.slug && formData.slug.trim()) {
-          formDataToSend.append('slug', formData.slug.trim());
-        }
+      } else if (formData.published_date?.trim()) {
+        formDataToSend.append('published_date', formData.published_date.trim());
       }
       
-      // Add images only if there are new ones (for updates, empty array means keep existing)
-      if (formData.images.length > 0) {
-        formData.images.forEach(file => {
-          formDataToSend.append('images', file);
-        });
-      }
+      formData.images.forEach(file => {
+        formDataToSend.append('images', file);
+      });
       
-      // SEO data: Only send if user provided custom values
-      // Backend will auto-generate SEO data if not provided
+      // Only send SEO data if user provided custom values
       if (formData.seo_data && Object.values(formData.seo_data).some(v => v && v.trim())) {
         formDataToSend.append('seo_data_json', JSON.stringify(formData.seo_data));
       }
@@ -356,6 +304,34 @@ export default function MediaPage() {
       setFormError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setFormLoading(false);
+    }
+  };
+
+  // Quick publish blog (only for drafts)
+  const handleTogglePublish = async (blog: Blog) => {
+    try {
+      const apiUrl = getApiUrl();
+      const token = getAuthToken();
+      
+      const formDataToSend = new FormData();
+      formDataToSend.append('is_published', 'true');
+
+      const response = await fetch(`${apiUrl}api/blogs/${blog.id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: 'An error occurred' }));
+        throw new Error(errorData.detail || 'Failed to publish blog');
+      }
+
+      fetchBlogs();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
     }
   };
 
@@ -418,7 +394,7 @@ export default function MediaPage() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
-            placeholder="Search by title or slug..."
+            placeholder="Search by title..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -491,15 +467,15 @@ export default function MediaPage() {
                     <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
                       {blog.title}
                     </h3>
+                    {blog.title_np && (
+                      <p className="text-sm text-gray-600 mb-2 line-clamp-1">
+                        {blog.title_np}
+                      </p>
+                    )}
                     <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
                       <Calendar className="w-3 h-3" />
                       {formatDate(blog.published_date)}
                     </div>
-                    {blog.slug && (
-                      <p className="text-xs text-gray-400 mb-4 font-mono truncate">
-                        /{blog.slug}
-                      </p>
-                    )}
 
                     {/* Actions */}
                     <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
@@ -510,6 +486,16 @@ export default function MediaPage() {
                         <Edit className="w-4 h-4" />
                         Edit
                       </button>
+                      {!blog.is_published && (
+                        <button
+                          onClick={() => handleTogglePublish(blog)}
+                          className="inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm text-green-600 bg-green-50 hover:bg-green-100 rounded transition-colors"
+                          title="Publish this blog"
+                        >
+                          <Eye className="w-4 h-4" />
+                          Publish
+                        </button>
+                      )}
                       <button
                         onClick={() => setDeleteConfirmId(blog.id)}
                         className="inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm text-red-600 bg-secondary/10 hover:bg-secondary/20 rounded transition-colors"
@@ -584,33 +570,33 @@ export default function MediaPage() {
               {/* Title */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Title *
+                  Title (English) *
                 </label>
                 <input
                   type="text"
                   required
                   value={formData.title}
-                  onChange={(e) => handleTitleChange(e.target.value)}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="Enter blog title"
+                  placeholder="Enter blog title in English"
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Slug will be auto-generated from this title
+                </p>
               </div>
 
-              {/* Slug */}
+              {/* Nepali Title */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Slug (URL-friendly) <span className="text-gray-400 font-normal">(Optional)</span>
+                  Title (Nepali) <span className="text-gray-400 font-normal">(Optional)</span>
                 </label>
                 <input
                   type="text"
-                  value={formData.slug}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-mono text-sm"
-                  placeholder="Leave empty to auto-generate from title"
+                  value={formData.title_np}
+                  onChange={(e) => setFormData({ ...formData, title_np: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Enter blog title in Nepali (नेपाली)"
                 />
-                <p className="text-xs text-gray-500 mt-1">
-                  Customize the URL slug or leave empty. Backend will auto-generate and ensure uniqueness.
-                </p>
               </div>
 
               {/* Content */}
@@ -721,17 +707,32 @@ export default function MediaPage() {
               </div>
 
               {/* Published Status */}
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="is_published"
-                  checked={formData.is_published}
-                  onChange={(e) => setFormData({ ...formData, is_published: e.target.checked })}
-                  className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
-                />
-                <label htmlFor="is_published" className="text-sm font-medium text-gray-700">
-                  Publish immediately
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Publication Status
                 </label>
+                <div className="flex items-center gap-6">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="publish_status"
+                      checked={formData.is_published}
+                      onChange={() => setFormData({ ...formData, is_published: true })}
+                      className="w-4 h-4 text-primary border-gray-300 focus:ring-primary"
+                    />
+                    <span className="text-sm font-medium text-gray-700">Publish Now</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="publish_status"
+                      checked={!formData.is_published}
+                      onChange={() => setFormData({ ...formData, is_published: false })}
+                      className="w-4 h-4 text-primary border-gray-300 focus:ring-primary"
+                    />
+                    <span className="text-sm font-medium text-gray-700">Save as Draft</span>
+                  </label>
+                </div>
               </div>
 
               {/* SEO Section */}
