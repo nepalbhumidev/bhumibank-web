@@ -89,7 +89,7 @@ export default function MediaPage() {
   const [formError, setFormError] = useState('');
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   
-  // Form state
+  // Form state (is_published is now handled by button clicks, not form state)
   const [formData, setFormData] = useState<BlogFormData>(() => getInitialFormData());
   
   const [previewImages, setPreviewImages] = useState<string[]>([]);
@@ -224,9 +224,8 @@ export default function MediaPage() {
     setExistingImages(existingImages.filter((_, i) => i !== index));
   };
 
-  // Submit form
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Submit form with publish status
+  const handleSubmit = async (isPublished: boolean) => {
     setFormLoading(true);
     setFormError('');
 
@@ -259,15 +258,11 @@ export default function MediaPage() {
       }
       
       formDataToSend.append('content', formData.content);
-      formDataToSend.append('is_published', formData.is_published ? 'true' : 'false');
+      formDataToSend.append('is_published', isPublished ? 'true' : 'false');
       
-      // Handle published_date: When editing and saving as draft, don't send published_date
-      // so backend can properly handle the is_published update
-      if (isEditing) {
-        if (formData.is_published && formData.published_date?.trim()) {
-          formDataToSend.append('published_date', formData.published_date.trim());
-        }
-      } else if (formData.published_date?.trim()) {
+      // published_date and is_published are independent fields
+      // Send published_date only if user provided a value (backend uses it as-is)
+      if (formData.published_date?.trim()) {
         formDataToSend.append('published_date', formData.published_date.trim());
       }
       
@@ -380,7 +375,7 @@ export default function MediaPage() {
           </div>
           <button
             onClick={handleCreate}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
             <Plus className="w-5 h-5" />
             Create New Post
@@ -556,7 +551,7 @@ export default function MediaPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            <form onSubmit={(e) => e.preventDefault()} className="p-6 space-y-6">
               {/* Form Error Message */}
               {formError && (
                 <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
@@ -701,38 +696,6 @@ export default function MediaPage() {
                   onChange={(e) => setFormData({ ...formData, published_date: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
-                <p className="text-xs text-gray-500 mt-1">
-                  Leave empty to use current date/time when publishing. Drafts don't require a date.
-                </p>
-              </div>
-
-              {/* Published Status */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Publication Status
-                </label>
-                <div className="flex items-center gap-6">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="publish_status"
-                      checked={formData.is_published}
-                      onChange={() => setFormData({ ...formData, is_published: true })}
-                      className="w-4 h-4 text-primary border-gray-300 focus:ring-primary"
-                    />
-                    <span className="text-sm font-medium text-gray-700">Publish Now</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="publish_status"
-                      checked={!formData.is_published}
-                      onChange={() => setFormData({ ...formData, is_published: false })}
-                      className="w-4 h-4 text-primary border-gray-300 focus:ring-primary"
-                    />
-                    <span className="text-sm font-medium text-gray-700">Save as Draft</span>
-                  </label>
-                </div>
               </div>
 
               {/* SEO Section */}
@@ -818,20 +781,73 @@ export default function MediaPage() {
                 >
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  disabled={formLoading}
-                  className="flex-1 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
-                >
-                  {formLoading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Saving...
-                    </>
-                  ) : (
-                    isEditing ? 'Update Post' : 'Create Post'
-                  )}
-                </button>
+                {isEditing ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handleSubmit(false)}
+                      disabled={formLoading}
+                      className="flex-1 px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+                    >
+                      {formLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        'Update and Draft'
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSubmit(true)}
+                      disabled={formLoading}
+                      className="flex-1 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+                    >
+                      {formLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        'Update and Publish'
+                      )}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handleSubmit(false)}
+                      disabled={formLoading}
+                      className="flex-1 px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+                    >
+                      {formLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        'Draft Post'
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSubmit(true)}
+                      disabled={formLoading}
+                      className="flex-1 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+                    >
+                      {formLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        'Publish Post'
+                      )}
+                    </button>
+                  </>
+                )}
               </div>
             </form>
           </div>
