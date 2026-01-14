@@ -144,7 +144,7 @@ export default function DashboardLayout({
       {/* Main Content Area */}
       <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
         {/* Main Content */}
-        <main className="flex-1 p-6 bg-gray-50">
+        <main>
           {children}
         </main>
       </div>
