@@ -215,7 +215,7 @@ const NewsSection = () => {
                           {item.content?.replace(/<[^>]*>/g, '')}
                         </p>
                         {/* Read More Button */}
-                        <button className="mt-auto self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base font-medium rounded hover:bg-secondary/90 transition-colors">
+                        <button className="mt-auto self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base rounded hover:bg-secondary/90 transition-colors">
                           {t('readMore')}
                           <ArrowRight className="w-3.5 h-3.5" />
                         </button>
