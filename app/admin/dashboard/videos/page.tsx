@@ -305,27 +305,19 @@ export default function VideosPage() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
-                      <a
-                        href={video.embed_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
-                      >
-                        <Play className="w-4 h-4" />
-                        Watch
-                      </a>
                       <button
                         onClick={() => handleEdit(video)}
-                        className="inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm text-primary bg-primary/10 hover:bg-primary/20 rounded transition-colors"
+                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm text-primary bg-primary/10 hover:bg-primary/20 rounded transition-colors"
                       >
                         <Edit className="w-4 h-4" />
                         Edit
                       </button>
                       <button
                         onClick={() => setDeleteConfirmId(video.id)}
-                        className="inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm text-red-600 bg-secondary/10 hover:bg-secondary/20 rounded transition-colors"
+                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm text-red-600 bg-secondary/10 hover:bg-secondary/20 rounded transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
+                        Delete
                       </button>
                     </div>
                   </div>

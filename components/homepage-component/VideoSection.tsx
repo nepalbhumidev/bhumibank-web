@@ -1,36 +1,43 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { Loader2 } from 'lucide-react';
 import ColorBand from '../ColorBand';
+import { apiGet } from '@/lib/api-client';
 
 interface Video {
   id: string;
-  embedUrl: string;
+  name: string;
+  video_id: string;
+  embed_url: string;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
 }
 
 const VideoSection = () => {
   const t = useTranslations('VideoSection');
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // This will be replaced with CMS data later
-  // Use the full embed URL from YouTube: https://www.youtube.com/embed/VIDEO_ID?si=...
-  const videos: Video[] = [
-    {
-      id: 'video1',
-      embedUrl: 'https://www.youtube.com/embed/84xnIWMkPrs?si=WYSCSAx2dPHKIHDE',
-    },
-    {
-      id: 'video2',
-      embedUrl: 'https://www.youtube.com/embed/IkBNGO88XjM?si=im5IqsVW0RRb7bzx',
-    },
-    {
-      id: 'video3',
-      embedUrl: 'https://www.youtube.com/embed/E-hERHLNWq0?si=hNBaQwOfAMCt3nN1',
-    },
-    {
-      id: 'video4',
-      embedUrl: 'https://www.youtube.com/embed/OFSBAUdqVzg?si=vv0d_a-zEaZoscgv',
-    },
-  ];
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        setLoading(true);
+        const data = await apiGet<Video[]>('api/videos?skip=0&limit=4');
+        setVideos(data);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch videos:', err);
+        setError('Failed to load videos');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVideos();
+  }, []);
 
   return (
     <section className="py-12 md:py-16 lg:py-20">
@@ -46,8 +53,29 @@ const VideoSection = () => {
         </div>
 
         {/* Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {videos.map((video) => (
+        <div className="relative min-h-[300px]">
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center z-20">
+              <Loader2 className="w-10 h-10 text-primary animate-spin" />
+            </div>
+          )}
+
+          {error && (
+            <div className="absolute inset-0 flex items-center justify-center z-20 text-primary text-center">
+              <div>
+                <p className="text-xl font-semibold mb-2">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="px-4 py-2 bg-secondary text-white rounded hover:bg-secondary/90 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {videos.map((video) => (
             <div
               key={video.id}
               className="group flex flex-col bg-white border border-primary hover:border-white shadow-md overflow-hidden transition-all duration-300"
@@ -57,7 +85,7 @@ const VideoSection = () => {
                 <iframe
                   width="560"
                   height="315"
-                  src={video.embedUrl}
+                  src={video.embed_url}
                   title="YouTube video player"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
@@ -69,7 +97,8 @@ const VideoSection = () => {
               {/* Bottom Band */}
               <div className="h-2 bg-secondary"></div>
             </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
