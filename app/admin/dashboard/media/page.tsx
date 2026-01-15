@@ -554,7 +554,7 @@ export default function MediaPage() {
             <form onSubmit={(e) => e.preventDefault()} className="p-6 space-y-6">
               {/* Form Error Message */}
               {formError && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+                <div className="p-2 bg-red-50 text-sm border border-red-200 rounded-lg text-red-700">
                   <div className="flex items-start gap-2">
                     <span className="font-semibold">Error:</span>
                     <span>{formError}</span>

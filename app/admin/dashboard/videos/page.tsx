@@ -37,6 +37,29 @@ const getInitialFormData = (): VideoFormData => ({
   video_id: '',
 });
 
+// Extract YouTube video ID from URL or return as-is if already an ID
+const extractVideoId = (input: string): string => {
+  const trimmed = input.trim();
+  
+  // Already an 11-char ID
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) {
+    return trimmed;
+  }
+  
+  // Try to extract from URL patterns
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+    /[?&]v=([a-zA-Z0-9_-]{11})/,
+  ];
+  
+  for (const pattern of patterns) {
+    const match = trimmed.match(pattern);
+    if (match) return match[1];
+  }
+  
+  return trimmed;
+};
+
 export default function VideosPage() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -119,9 +142,10 @@ export default function VideosPage() {
     setFormError('');
 
     try {
-      // Validate video_id (must be 11 chars)
-      if (formData.video_id.length !== 11) {
-        setFormError('YouTube video ID must be exactly 11 characters');
+      // Extract and validate video_id
+      const videoId = extractVideoId(formData.video_id);
+      if (videoId.length !== 11) {
+        setFormError('Invalid YouTube URL or video ID');
         setFormLoading(false);
         return;
       }
@@ -131,7 +155,7 @@ export default function VideosPage() {
       
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
-      formDataToSend.append('video_id', formData.video_id);
+      formDataToSend.append('video_id', videoId);
 
       const url = isEditing && editingVideoId
         ? `${apiUrl}api/videos/${editingVideoId}`
@@ -257,18 +281,16 @@ export default function VideosPage() {
                   key={video.id}
                   className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-xs transition-shadow bg-white"
                 >
-                  {/* Video Thumbnail */}
+                  {/* Embedded Video */}
                   <div className="relative h-48 bg-gray-900">
-                    <img
-                      src={`https://img.youtube.com/vi/${video.video_id}/hqdefault.jpg`}
-                      alt={video.name}
-                      className="w-full h-full object-cover"
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.video_id}`}
+                      title={video.name}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
                     />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                      <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
-                        <Play className="w-8 h-8 text-white ml-1" fill="white" />
-                      </div>
-                    </div>
                   </div>
 
                   {/* Content */}
@@ -362,7 +384,7 @@ export default function VideosPage() {
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               {/* Form Error */}
               {formError && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+                <div className="p-2 bg-red-50 text-sm border border-red-200 rounded-lg text-red-700">
                   {formError}
                 </div>
               )}
@@ -383,10 +405,10 @@ export default function VideosPage() {
                 />
               </div>
 
-              {/* YouTube Video ID */}
+              {/* YouTube URL */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  YouTube Video ID *
+                  YouTube URL or Video ID *
                 </label>
                 <input
                   type="text"
@@ -394,23 +416,22 @@ export default function VideosPage() {
                   value={formData.video_id}
                   onChange={(e) => setFormData({ ...formData, video_id: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="e.g., dQw4w9WgXcQ"
-                  maxLength={11}
+                  placeholder="e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  The 11-character ID from the YouTube URL (e.g., youtube.com/watch?v=<strong>dQw4w9WgXcQ</strong>)
+                  Paste the full YouTube URL or just the video ID
                 </p>
               </div>
 
               {/* Preview */}
-              {formData.video_id.length === 11 && (
+              {extractVideoId(formData.video_id).length === 11 && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Preview
                   </label>
                   <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
                     <iframe
-                      src={`https://www.youtube.com/embed/${formData.video_id}`}
+                      src={`https://www.youtube.com/embed/${extractVideoId(formData.video_id)}`}
                       className="w-full h-full"
                       frameBorder="0"
                       allowFullScreen
