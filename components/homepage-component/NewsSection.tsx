@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { ArrowRight, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import ColorBand from '../ColorBand';
 import { apiGet } from '@/lib/api-client';
+import Link from 'next/link';
 
 interface BlogListItem {
   id: string;
@@ -179,8 +180,9 @@ const NewsSection = () => {
               }}
             >
               {newsItems.map((item) => (
-                <div
+                <Link
                   key={item.id}
+                  href={`/media/${item.slug}`}
                   className="flex-shrink-0 px-2"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
@@ -212,19 +214,19 @@ const NewsSection = () => {
                           {item.title}
                         </h3>
                         <p className="text-sm md:text-base text-gray-600 group-hover:text-white/90 mb-4 transition-colors duration-300 line-clamp-3">
-                          {item.content?.replace(/<[^>]*>/g, '')}
+                          {item.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}
                         </p>
                         {/* Read More Button */}
-                        <button className="mt-auto self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base rounded hover:bg-secondary/90 transition-colors">
+                        <div className="mt-auto self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base rounded hover:bg-secondary/90 transition-colors group-hover:gap-3">
                           {t('readMore')}
                           <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
+                        </div>
                       </div>
                       {/* Bottom Band */}
-                      <div className="h-2 bg-secondary"></div>
+                      <div className="h-2 bg-secondary transform origin-left transition-transform duration-300 group-hover:scale-x-110"></div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

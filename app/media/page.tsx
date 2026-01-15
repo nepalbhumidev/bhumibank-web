@@ -7,6 +7,7 @@ import { ArrowRight, Loader2 } from 'lucide-react';
 import { apiGet } from '@/lib/api-client';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Link from 'next/link';
 
 interface BlogListItem {
   id: string;
@@ -77,7 +78,7 @@ export default function MediaPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {newsItems.map((item) => (
-                <div key={item.id} className="h-full">
+                <Link key={item.id} href={`/media/${item.slug}`} className="h-full">
                   <div className="group bg-white border border-gray-100 hover:bg-primary transition-all duration-300 overflow-hidden h-full flex flex-col shadow-md hover:shadow-2xl cursor-pointer">
                     {/* Image Container */}
                     <div className="relative aspect-[16/9] overflow-hidden">
@@ -104,20 +105,20 @@ export default function MediaPage() {
                       <h3 className="text-xl font-bold text-gray-900 group-hover:text-white mb-3 transition-colors duration-300 line-clamp-2 leading-tight">
                         {item.title}
                       </h3>
-                      <p className="text-gray-600 group-hover:text-white/90 mb-6 transition-colors duration-300 line-clamp-3 text-sm md:text-base leading-relaxed">
-                        {item.content?.replace(/<[^>]*>/g, '')}
+                      <p className="text-gray-600 group-hover:text-white/90 mb-4 transition-colors duration-300 line-clamp-3 text-sm md:text-base leading-relaxed">
+                        {item.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}
                       </p>
 
                       {/* Read More Button */}
-                      <button className="mt-auto self-start inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-white text-sm rounded hover:bg-secondary/90 transition-all hover:gap-3">
+                      <div className="mt-auto self-start inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-white text-sm rounded hover:bg-secondary/90 transition-all group-hover:gap-3">
                         {t('readMore')}
                         <ArrowRight className="w-4 h-4" />
-                      </button>
+                      </div>
                     </div>
                     {/* Bottom Band */}
                     <div className="h-2 bg-secondary transform origin-left transition-transform duration-300 group-hover:scale-x-110"></div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
