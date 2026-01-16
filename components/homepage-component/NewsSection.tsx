@@ -122,6 +122,9 @@ const NewsSection = () => {
               {t('heading')}
             </h2>
             <ColorBand rightColor="secondary" />
+            <p className="mt-2 text-white/90 text-sm md:text-base lg:text-lg">
+              {t('subtitle')}
+            </p>
           </div>
 
           {/* Navigation Controls - Desktop */}

@@ -108,7 +108,7 @@ const TestimonialsSection = () => {
                 {t('heading')}
               </h2>
               <ColorBand />
-              <p className="mt-4 text-gray-600 text-sm md:text-base lg:text-lg">
+              <p className="mt-2 text-gray-600 text-sm md:text-base lg:text-lg">
                 {t('subtitle')}
               </p>
             </div>

@@ -18,6 +18,7 @@
     },
     "FeaturesSection": {
         "heading": "The Company",
+        "subtitle": "Transforming Nepal's landscape through sustainable development",
         "description": "Nepal Bhumi Bank will extensively link fallow lands across Nepal to productive uses. It will lease and utilize government, trust (guthi), authority, organizational, and private house lands for operations. Through integrated land plans, including purchase/sale of properties, housing, apartments, homes, malls, and towers with construction,it will implement land use policies, supporting the state via private sector involvement. Nepal Bhumi Bank Limited is a leading land banking institution promoting sustainable development nationwide. Founded with a vision to convert uneven terrains into thriving, eco-friendly communities, it specializes in land acquisition, development, and distribution, incorporating modern amenities like schools, hospitals, parks, and utilities. Our environmental commitment ensures balanced growth in every project, offering flexible investments and transparent deals tailored to clients. Through national partnerships and social responsibility, we aim to create a prosperous Nepal where land is a secure, generational asset.",
         "sustainableLandDevelopment": {
             "title": "Sustainable Land Development",
@@ -33,10 +34,12 @@
         }
     },
     "VideoSection": {
-        "heading": "Videos"
+        "heading": "Videos",
+        "subtitle": "Watch our latest videos and learn more about our work"
     },
     "NewsSection": {
         "heading": "Latest News",
+        "subtitle": "Stay updated with our latest news and announcements",
         "readMore": "Read More"
     },
     "InvestSection": {
