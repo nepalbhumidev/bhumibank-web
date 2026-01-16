@@ -100,5 +100,14 @@
         "panNumber": "623517864",
         "regNo": "Reg No.",
         "regNumber": "382469/82/83"
+    },
+    "MediaPage": {
+        "heading": "Media & News",
+        "subtitle": "Stay updated with the latest news, press releases, and media coverage about Nepal Bhumi Bank Limited.",
+        "readMore": "Read More"
+    },
+    "NoticePage": {
+        "heading": "Notices",
+        "subtitle": "Stay updated with the latest notices and announcements about Nepal Bhumi Bank Limited."
     }
 }

@@ -21,7 +21,7 @@ interface BlogListItem {
 }
 
 export default function MediaPage() {
-  const t = useTranslations('NewsSection');
+  const t = useTranslations('MediaPage');
   const [newsItems, setNewsItems] = useState<BlogListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,10 +53,10 @@ export default function MediaPage() {
           {/* Header */}
           <div className="mb-12 border-b border-gray-200 pb-8">
             <h1 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
-              Media & News
+              {t('heading')}
             </h1>
             <p className="text-gray-600 max-w-3xl text-lg">
-              Stay updated with the latest news, press releases, and media coverage about Nepal Bhumi Bank Limited.
+              {t('subtitle')}
             </p>
           </div>
 

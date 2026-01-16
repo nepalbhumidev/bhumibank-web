@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { getApiUrl } from '@/lib/api-client';
 import Image from 'next/image';
 import { Calendar, ChevronDown, ChevronUp, Loader2, FileText } from 'lucide-react';
-import ColorBand from '@/components/ColorBand';
+import { useTranslations } from 'next-intl';
 
 interface Notice {
   id: string;
@@ -20,6 +20,7 @@ interface Notice {
 }
 
 export default function NoticesPage() {
+  const t = useTranslations('NoticePage');
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -95,12 +96,12 @@ export default function NoticesPage() {
       <main className="min-h-screen bg-white">
         <div className="wrapper py-8 md:py-12 lg:py-16">
           {/* Header */}
-          <div className="mb-10 md:mb-16">
+          <div className="mb-12 border-b border-gray-200 pb-8">
             <h1 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
-              Notices
+              {t('heading')}
             </h1>
             <p className="mt-4 text-gray-600 text-sm md:text-base lg:text-lg">
-              Stay updated with our latest notices and important announcements from Nepal Bhumi Bank Limited.
+              {t('subtitle')}
             </p>
           </div>
 
