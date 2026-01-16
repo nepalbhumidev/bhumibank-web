@@ -39,9 +39,9 @@ const FeaturesSection = () => {
                 {t('heading')}
               </h2>
               <ColorBand />
-              <p className="mt-2 text-gray-600 text-sm md:text-base lg:text-lg">
+              {/* <p className="mt-2 text-gray-600 text-sm md:text-base lg:text-lg">
                 {t('subtitle')}
-              </p>
+              </p> */}
             </div>
 
             {/* Paragraph Content */}

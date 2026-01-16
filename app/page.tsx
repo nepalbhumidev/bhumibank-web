@@ -7,6 +7,7 @@ import VideoSection from "../components/homepage-component/VideoSection";
 import NewsSection from "../components/homepage-component/NewsSection";
 import Footer from "../components/Footer";
 import StickyActions from "../components/StickyActions";
+import FeaturedNoticesPopup from "../components/FeaturedNoticesPopup";
 // import {useTranslations} from 'next-intl';
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       <TestimonialsSection />
       <Footer />
       <StickyActions />
+      <FeaturedNoticesPopup />
     </>
   );
 }
