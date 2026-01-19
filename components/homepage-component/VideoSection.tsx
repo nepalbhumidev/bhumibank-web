@@ -40,7 +40,7 @@ const VideoSection = () => {
   }, []);
 
   return (
-    <section className="py-12 md:py-16 lg:py-20">
+    <section className="pb-12 md:pb-16 lg:pb-20">
       <div className="wrapper">
         {/* Heading */}
         <div className="mb-10 md:mb-16">
@@ -49,10 +49,10 @@ const VideoSection = () => {
               {t('heading')}
             </h2>
             <ColorBand />
-            <p className="mt-2 text-gray-600 text-sm md:text-base lg:text-lg">
-              {t('subtitle')}
-            </p>
           </div>
+          <p className="mt-2 text-gray-600 text-sm md:text-base lg:text-lg">
+            {t('subtitle')}
+          </p>
         </div>
 
         {/* Video Grid */}

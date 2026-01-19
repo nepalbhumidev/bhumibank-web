@@ -142,5 +142,40 @@
             "description": "Discover how Nepal Bhumi Bank Limited can help you invest in Nepal's future through sustainable land development.",
             "button": "Learn More About Our Services"
         }
+    },
+    "WhatWeDoPage": {
+        "heading": "What We Do",
+        "subtitle": "Services by Nepal Bhumi Bank Limited",
+        "centerTitle": "Our Services",
+        "services": {
+            "1": {
+                "title": "Property Rental & Sales for NRNs",
+                "description": "Renting houses of NRNs (Non-Resident Nepalis) living abroad with full conservation and management, handling buying-selling, and taking complete responsibility for houses, land, apartments, and flats through mutual understanding as needed."
+            },
+            "2": {
+                "title": "Real Estate Development",
+                "description": "Buying and selling properties as needed, constructing apartments, parks, halls, malls, and towers for sale and distribution, with all necessary licenses and permits for these operations."
+            },
+            "3": {
+                "title": "Problem Land Resolution",
+                "description": "Resolving auctioned lands from banks, financial institutions, associations, and cooperatives. We work to solve problematic land issues and make every effort to resolve land disputes."
+            },
+            "4": {
+                "title": "Land & Construction Services",
+                "description": "Land consolidation, soil erosion prevention, surveying, consulting, engineering services, map preparation, and all construction-related works for houses and buildings."
+            },
+            "5": {
+                "title": "Financial Advisory Services",
+                "description": "Providing financial consultation services, arranging loans with collateral and guarantees, and offering comprehensive support in financial matters."
+            },
+            "6": {
+                "title": "Land Leasing & Utilization",
+                "description": "Leasing government, non-government, organizational, trust (guthi), riverbank, and authority-acquired lands under high tension lines, as well as private lands, connecting them to productive uses."
+            },
+            "7": {
+                "title": "Property Maintenance & Conservation",
+                "description": "Taking private houses and shelters on lease with full conservation guarantee including painting, electricity, plumbing, bathroom, railing, and door-window repairs and maintenance."
+            }
+        }
     }
 }
