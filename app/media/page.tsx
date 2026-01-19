@@ -79,7 +79,7 @@ export default function MediaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {newsItems.map((item) => (
                 <Link key={item.id} href={`/media/${item.slug}`} className="h-full">
-                  <div className="group bg-white border border-gray-100 hover:bg-primary transition-all duration-300 overflow-hidden h-full flex flex-col shadow-md hover:shadow-2xl cursor-pointer">
+                  <div className="group bg-white border border-gray-100 hover:bg-primary transition-all duration-300 overflow-hidden h-full flex flex-col shadow-sm hover:shadow-xl cursor-pointer">
                     {/* Image Container */}
                     <div className="relative aspect-[16/9] overflow-hidden">
                       <Image

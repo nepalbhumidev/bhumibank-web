@@ -109,5 +109,38 @@
     "NoticePage": {
         "heading": "Notices",
         "subtitle": "Stay updated with the latest notices and announcements about Nepal Bhumi Bank Limited."
+    },
+    "InformationPage": {
+        "companyOverview": {
+            "heading": "Company Overview",
+            "description": "Nepal Bhumi Bank Limited is a newly established land banking institution dedicated to promoting sustainable development across Nepal. Founded in 2025, we specialize in acquiring fallow or uneven lands and transforming them into productive, eco-friendly communities. Our approach integrates modern infrastructure with environmental conservation, ensuring that every project contributes to a greener, more prosperous Nepal. With a team of experienced professionals in real estate, finance, and sustainability, we aim to make land a secure and valuable asset for individuals, organizations, and the nation."
+        },
+        "mission": {
+            "heading": "Our Mission",
+            "description": "Our mission is to bridge unused lands with productive opportunities, fostering economic growth through ethical land management, transparent investments, and community-focused developments."
+        },
+        "vision": {
+            "heading": "Our Vision",
+            "description": "To become Nepal's leading land bank, creating sustainable settlements that balance human progress with nature's preservation for generations to come."
+        },
+        "coreValues": {
+            "heading": "Core Values",
+            "sustainability": "Sustainability: Prioritizing eco-friendly practices in all developments.",
+            "transparency": "Transparency: Ensuring clear and honest transactions for all stakeholders.",
+            "innovation": "Innovation: Using modern techniques to enhance land value.",
+            "communityFocus": "Community Focus: Building amenities that improve quality of life.",
+            "integrity": "Integrity: Upholding ethical standards in partnerships and operations."
+        },
+        "president": {
+            "heading": "Word from our President",
+            "name": "Mrs. Pabitra Kumari Pokhrel",
+            "title": "President",
+            "message": "As the President of Nepal Bhumi Bank Limited, I am honored to lead an institution dedicated to transforming Nepal's landscape through sustainable land development. Our commitment to ethical practices, environmental conservation, and community welfare drives every decision we make. We believe that land is not just a resource, but a legacy that connects generations. Through transparent operations and innovative solutions, we aim to create lasting value for our stakeholders while contributing to Nepal's sustainable development. Together, we are building a future where land becomes a secure, generational asset for all Nepalis."
+        },
+        "cta": {
+            "heading": "Ready to Transform Land into Opportunity?",
+            "description": "Discover how Nepal Bhumi Bank Limited can help you invest in Nepal's future through sustainable land development.",
+            "button": "Learn More About Our Services"
+        }
     }
 }
