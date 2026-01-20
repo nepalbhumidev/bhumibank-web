@@ -55,7 +55,7 @@ export default function MediaPage() {
             <h1 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
               {t('heading')}
             </h1>
-            <p className="text-gray-600 max-w-3xl text-lg">
+            <p className="text-gray-600 max-w-4xl text-lg">
               {t('subtitle')}
             </p>
           </div>
@@ -79,14 +79,14 @@ export default function MediaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {newsItems.map((item) => (
                 <Link key={item.id} href={`/media/${item.slug}`} className="h-full">
-                  <div className="group bg-white border border-gray-100 hover:bg-primary transition-all duration-300 overflow-hidden h-full flex flex-col shadow-sm hover:shadow-xl cursor-pointer">
+                  <div className="group bg-white border border-gray-100 hover:bg-primary transition-all duration-500 overflow-hidden h-full flex flex-col shadow-sm hover:shadow-xl cursor-pointer">
                     {/* Image Container */}
                     <div className="relative aspect-[16/9] overflow-hidden">
                       <Image
                         src={item.image_url || '/placeholder-image.png'}
                         alt={item.title}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       {/* Date Badge */}
                       <div className="absolute bottom-0 right-0 bg-secondary text-white px-3 py-1.5 text-xs font-semibold">
@@ -101,7 +101,7 @@ export default function MediaPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="flex-1 p-6 flex flex-col">
+                    <div className="flex-1 p-4 flex flex-col">
                       <h3 className="text-xl font-bold text-gray-900 group-hover:text-white mb-3 transition-colors duration-300 line-clamp-2 leading-tight">
                         {item.title}
                       </h3>

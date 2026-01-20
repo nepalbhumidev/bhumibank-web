@@ -190,14 +190,14 @@ const NewsSection = () => {
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
                   <div className="h-full">
-                    <div className="group bg-white border border-b-0 border-white hover:bg-primary transition-all duration-300 overflow-hidden h-full flex flex-col shadow-md cursor-pointer">
+                    <div className="group bg-white border border-b-0 border-white hover:bg-primary transition-all duration-500 overflow-hidden h-full flex flex-col shadow-md cursor-pointer">
                       {/* Image Container */}
                       <div className="relative aspect-[16/9] overflow-hidden">
                         <Image
                           src={item.image_url}
                           alt={item.title}
                           fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         {/* Date Badge */}
                         <div className="absolute bottom-0 right-0 bg-secondary text-white px-3 py-1 text-xs font-medium">

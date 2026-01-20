@@ -13,7 +13,7 @@ export default function ReachUsPage() {
     <>
       <Navbar />
       <main className="min-h-screen">
-        <div className="wrapper py-12 md:py-16 lg:py-20">
+        <div className="wrapper py-8 md:py-12 lg:py-16">
           {/* Header */}
           <div className="mb-12">
             <div className="inline-block">
