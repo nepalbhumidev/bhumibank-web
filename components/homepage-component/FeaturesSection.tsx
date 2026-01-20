@@ -31,7 +31,7 @@ const FeaturesSection = () => {
       
       <div className="wrapper relative z-10">
         {/* Top Section */}
-        <div className="mb-10 md:mb-16">
+        <div className="mb-8 md:mb-12">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             {/* Heading */}
             <div className="flex-shrink-0">

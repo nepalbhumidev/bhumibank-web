@@ -3,25 +3,26 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ArrowRight, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Loader2, Image as ImageIcon } from 'lucide-react';
 import ColorBand from '../ColorBand';
 import { apiGet } from '@/lib/api-client';
 import Link from 'next/link';
 
-interface BlogListItem {
+interface Gallery {
   id: string;
   title: string;
-  title_np?: string;
-  image_url: string;
-  image_urls: string[];
-  content?: string;
-  published_date?: string;
-  slug?: string;
+  description: string;
+  cover_image_url: string;
+  cover_image_public_id: string | null;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+  image_count: number;
 }
 
-const NewsSection = () => {
-  const t = useTranslations('NewsSection');
-  const [newsItems, setNewsItems] = useState<BlogListItem[]>([]);
+const GallerySection = () => {
+  const t = useTranslations('GallerySection');
+  const [galleries, setGalleries] = useState<Gallery[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,25 +47,25 @@ const NewsSection = () => {
   }, []);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchGalleries = async () => {
       try {
         setLoading(true);
-        const data = await apiGet<BlogListItem[]>('api/blogs?limit=6&sort_by=published_date&sort_order=-1');
+        const data = await apiGet<Gallery[]>('api/gallery?limit=6&sort_by=created_at&sort_order=-1');
 
-        setNewsItems(data);
+        setGalleries(data);
         setError(null);
       } catch (err) {
-        console.error('Error fetching blogs:', err);
-        setError('Failed to load news items');
+        console.error('Error fetching galleries:', err);
+        setError('Failed to load galleries');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBlogs();
+    fetchGalleries();
   }, []);
 
-  const maxIndex = Math.max(0, newsItems.length - itemsPerView);
+  const maxIndex = Math.max(0, galleries.length - itemsPerView);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -76,7 +77,7 @@ const NewsSection = () => {
 
   // Autoscroll every 5 seconds
   useEffect(() => {
-    if (newsItems.length <= itemsPerView) return; // Don't autoscroll if all items are visible
+    if (galleries.length <= itemsPerView) return; // Don't autoscroll if all items are visible
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => {
@@ -86,7 +87,7 @@ const NewsSection = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [maxIndex, itemsPerView, newsItems.length]);
+  }, [maxIndex, itemsPerView, galleries.length]);
 
   // Touch event handlers for swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -132,7 +133,7 @@ const NewsSection = () => {
             <button
               onClick={goToPrevious}
               className="w-12 h-12 rounded-full bg-white border-2 border-white hover:border-secondary hover:bg-secondary text-primary flex items-center justify-center transition-all duration-500 shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Previous news"
+              aria-label="Previous gallery"
               disabled={currentIndex === 0}
             >
               <ChevronLeft className="w-6 h-6" />
@@ -140,15 +141,15 @@ const NewsSection = () => {
             <button
               onClick={goToNext}
               className="w-12 h-12 rounded-full bg-secondary text-white hover:bg-secondary/90 flex items-center justify-center transition-all duration-500 shadow-md hover:shadow-xl"
-              aria-label="Next news"
+              aria-label="Next gallery"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
           </div>
         </div>
 
-        {/* News Carousel */}
-        <div className="relative min-h-[400px]">
+        {/* Gallery Carousel */}
+        <div className="relative">
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center z-20">
               <Loader2 className="w-10 h-10 text-white animate-spin" />
@@ -182,48 +183,35 @@ const NewsSection = () => {
                 transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
               }}
             >
-              {newsItems.map((item) => (
+              {galleries.map((gallery) => (
                 <Link
-                  key={item.id}
-                  href={`/media/${item.slug}`}
+                  key={gallery.id}
+                  href={`/gallery`}
                   className="flex-shrink-0 px-2"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
                   <div className="h-full">
                     <div className="group bg-white border border-b-0 border-white hover:bg-primary transition-all duration-500 overflow-hidden h-full flex flex-col shadow-md cursor-pointer">
                       {/* Image Container */}
-                      <div className="relative aspect-[16/9] overflow-hidden">
+                      <div className="relative aspect-video overflow-hidden">
                         <Image
-                          src={item.image_url}
-                          alt={item.title}
+                          src={gallery.cover_image_url}
+                          alt={gallery.title}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        {/* Date Badge */}
-                        <div className="absolute bottom-0 right-0 bg-secondary text-white px-3 py-1 text-xs font-medium">
-                          {item.published_date
-                            ? new Intl.DateTimeFormat('en-GB', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric',
-                            }).format(new Date(item.published_date))
-                            : 'Recently'}
+                        {/* Image Count Badge */}
+                        <div className="absolute top-2 right-2 bg-black/50 text-white px-3 py-1 text-xs font-medium rounded flex items-center gap-1">
+                          <ImageIcon className="w-3 h-3" />
+                          {gallery.image_count} {gallery.image_count === 1 ? 'image' : 'images'}
                         </div>
                       </div>
 
                       {/* Content */}
                       <div className="flex-1 p-4 flex flex-col">
-                        <h3 className="text-md md:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-500 line-clamp-2">
-                          {item.title}
+                        <h3 className="text-md md:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-white transition-colors duration-500 line-clamp-2">
+                          {gallery.title}
                         </h3>
-                        <p className="text-sm md:text-base text-gray-600 group-hover:text-white/90 mb-4 transition-colors duration-500 line-clamp-3">
-                          {item.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}
-                        </p>
-                        {/* Read More Button */}
-                        <div className="mt-auto self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base rounded hover:bg-secondary/90 transition-colors group-hover:gap-3">
-                          {t('readMore')}
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </div>
                       </div>
                       {/* Bottom Band */}
                       <div className="h-2 bg-secondary transform origin-left transition-transform duration-500 group-hover:scale-x-110"></div>
@@ -236,7 +224,7 @@ const NewsSection = () => {
 
           {/* Mobile Navigation Dots */}
           <div className="flex justify-center gap-2 mt-8 md:hidden">
-            {newsItems.map((_, index) => (
+            {galleries.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
@@ -244,7 +232,7 @@ const NewsSection = () => {
                   ? 'w-8 h-2 bg-white'
                   : 'w-2 h-2 bg-white/50'
                   }`}
-                aria-label={`Go to news ${index + 1}`}
+                aria-label={`Go to gallery ${index + 1}`}
               />
             ))}
           </div>
@@ -254,4 +242,4 @@ const NewsSection = () => {
   );
 };
 
-export default NewsSection;
+export default GallerySection;

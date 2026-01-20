@@ -5,6 +5,7 @@ import InvestSection from "../components/homepage-component/InvestSection";
 import TestimonialsSection from "../components/homepage-component/TestimonialsSection";
 import VideoSection from "../components/homepage-component/VideoSection";
 import NewsSection from "../components/homepage-component/NewsSection";
+import GallerySection from "../components/homepage-component/GallerySection";
 import Footer from "../components/Footer";
 import StickyActions from "../components/StickyActions";
 import FeaturedNoticesPopup from "../components/FeaturedNoticesPopup";
@@ -38,7 +39,7 @@ export default function Home() {
         </div>
         <ServicesRadial />
       </div>
-      
+      <GallerySection />
       <VideoSection />
       <TestimonialsSection />
       <Footer />

@@ -12,7 +12,7 @@ const InvestSection = () => {
     <section className="py-12 md:py-16 lg:py-20">
       <div className="wrapper">
         {/* Heading */}
-        <div className="mb-10 md:mb-16 text-right">
+        <div className="mb-8 md:mb-12 text-right">
           <div className="inline-block">
             <h2 className="text-4xl lg:text-5xl font-bold text-primary">
               {t('heading')}

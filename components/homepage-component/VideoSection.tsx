@@ -40,10 +40,10 @@ const VideoSection = () => {
   }, []);
 
   return (
-    <section className="pb-12 md:pb-16 lg:pb-20">
+    <section className="py-12 md:py-16 lg:py-20">
       <div className="wrapper">
         {/* Heading */}
-        <div className="mb-10 md:mb-16">
+        <div className="mb-8 md:mb-12">
           <div className="inline-block">
             <h2 className="text-4xl lg:text-5xl font-bold text-primary">
               {t('heading')}
@@ -56,7 +56,7 @@ const VideoSection = () => {
         </div>
 
         {/* Video Grid */}
-        <div className="relative min-h-[300px]">
+        <div className="relative">
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center z-20">
               <Loader2 className="w-10 h-10 text-primary animate-spin" />
@@ -81,7 +81,7 @@ const VideoSection = () => {
             {videos.map((video) => (
             <div
               key={video.id}
-              className="group flex flex-col bg-white border border-primary hover:border-white shadow-md overflow-hidden transition-all duration-300"
+              className="group flex flex-col bg-white border border-primary hover:border-white shadow-md overflow-hidden transition-all duration-500"
             >
               {/* Video Embed */}
               <div className="relative aspect-video bg-gray-900">
