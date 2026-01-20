@@ -82,7 +82,7 @@ const ServicesRadial = () => {
                   <div className="w-10 h-10 bg-secondary/10 px-2 group-hover:bg-secondary text-secondary group-hover:text-white flex items-center justify-center transition-colors duration-300">
                     {service.icon}
                   </div>
-                  <h3 className="font-bold text-primary text-md leading-tight">
+                  <h3 className="font-bold text-primary text-base leading-tight">
                     {t(`services.${service.id}.title`)}
                   </h3>
                 </div>
@@ -125,11 +125,11 @@ const ServicesRadial = () => {
                       <div className="w-10 h-10 bg-secondary/10 group-hover:bg-secondary text-secondary group-hover:text-white flex items-center justify-center transition-colors duration-300 flex-shrink-0">
                         {service.icon}
                       </div>
-                      <h3 className="font-bold text-primary text-sm leading-tight">
+                      <h3 className="font-bold text-primary text-base leading-tight">
                         {t(`services.${service.id}.title`)}
                       </h3>
                     </div>
-                    <p className="text-gray-600 text-xs leading-relaxed">
+                    <p className="text-gray-600 text-sm leading-relaxed">
                       {t(`services.${service.id}.description`)}
                     </p>
                   </div>
@@ -168,11 +168,11 @@ const ServicesRadial = () => {
                     <div className="w-10 h-10 bg-secondary/10 group-hover:bg-secondary text-secondary group-hover:text-white flex items-center justify-center transition-colors duration-300 flex-shrink-0">
                       {service.icon}
                     </div>
-                    <h3 className="font-bold text-primary text-sm leading-tight">
+                    <h3 className="font-bold text-primary text-md leading-tight">
                       {t(`services.${service.id}.title`)}
                     </h3>
                   </div>
-                  <p className="text-gray-600 text-xs leading-relaxed">
+                  <p className="text-gray-600 text-sm leading-relaxed">
                     {t(`services.${service.id}.description`)}
                   </p>
                 </div>

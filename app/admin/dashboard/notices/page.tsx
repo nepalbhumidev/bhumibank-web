@@ -15,8 +15,7 @@ import {
   FileText,
   Star
 } from 'lucide-react';
-import { getApiUrl } from '@/lib/api-client';
-import { getAuthToken } from '@/lib/auth-client';
+import { apiGet, apiRequestFormData, apiDelete } from '@/lib/api-client';
 import Image from 'next/image';
 
 interface Notice {
@@ -68,24 +67,12 @@ export default function NoticesPage() {
     try {
       setLoading(true);
       setError('');
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
       
       const skip = currentPage * pageSize;
-      const response = await fetch(
-        `${apiUrl}api/notices?skip=${skip}&limit=${pageSize}&sort_by=created_at&sort_order=-1`,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        }
+      const data = await apiGet<Notice[]>(
+        `api/notices?skip=${skip}&limit=${pageSize}&sort_by=created_at&sort_order=-1`
       );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch notices');
-      }
-
-      const data = await response.json();
+      
       setNotices(Array.isArray(data) ? data : []);
       setTotalPages(data.length < pageSize ? currentPage + 1 : currentPage + 2);
     } catch (err) {
@@ -130,23 +117,13 @@ export default function NoticesPage() {
     
     // Fetch full notice details if needed
     try {
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      const response = await fetch(`${apiUrl}api/notices/${notice.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+      const fullNotice = await apiGet<Notice>(`api/notices/${notice.id}`);
+      setFormData({
+        title: fullNotice.title || '',
+        image: null,
+        featured: fullNotice.featured || false,
       });
-      
-      if (response.ok) {
-        const fullNotice = await response.json();
-        setFormData({
-          title: fullNotice.title || '',
-          image: null,
-          featured: fullNotice.featured || false,
-        });
-        setExistingImageUrl(fullNotice.image_url || null);
-      }
+      setExistingImageUrl(fullNotice.image_url || null);
     } catch (err) {
       console.error('Error fetching notice details:', err);
     }
@@ -198,9 +175,6 @@ export default function NoticesPage() {
       // For new notices, image is optional but recommended
       // For editing, if no new image and no existing image, that's okay (title-only update)
 
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title.trim());
       formDataToSend.append('featured', formData.featured.toString());
@@ -209,17 +183,15 @@ export default function NoticesPage() {
         formDataToSend.append('image', formData.image);
       }
 
-      const url = isEditing && editingNoticeId
-        ? `${apiUrl}api/notices/${editingNoticeId}`
-        : `${apiUrl}api/notices`;
+      const endpoint = isEditing && editingNoticeId
+        ? `api/notices/${editingNoticeId}`
+        : 'api/notices';
 
-      const response = await fetch(url, {
-        method: isEditing ? 'PUT' : 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formDataToSend,
-      });
+      const response = await apiRequestFormData(
+        endpoint,
+        formDataToSend,
+        isEditing ? 'PUT' : 'POST'
+      );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ detail: 'An error occurred' }));
@@ -239,20 +211,7 @@ export default function NoticesPage() {
   // Delete notice
   const handleDelete = async (id: string) => {
     try {
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      
-      const response = await fetch(`${apiUrl}api/notices/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok && response.status !== 204) {
-        throw new Error('Failed to delete notice');
-      }
-
+      await apiDelete(`api/notices/${id}`);
       setDeleteConfirmId(null);
       fetchNotices();
     } catch (err) {

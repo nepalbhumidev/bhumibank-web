@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getApiUrl } from '@/lib/api-client';
+import { apiGet } from '@/lib/api-client';
 import Image from 'next/image';
 import { Calendar, ChevronDown, ChevronUp, Loader2, FileText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -32,17 +32,9 @@ export default function NoticesPage() {
     try {
       setLoading(true);
       setError('');
-      const apiUrl = getApiUrl();
-      
-      const response = await fetch(
-        `${apiUrl}api/notices?skip=0&limit=100&sort_by=created_at&sort_order=-1`
+      const data = await apiGet<Notice[]>(
+        'api/notices?skip=0&limit=100&sort_by=created_at&sort_order=-1'
       );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch notices');
-      }
-
-      const data = await response.json();
       setNotices(Array.isArray(data) ? data : []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -66,13 +58,8 @@ export default function NoticesPage() {
       
       if (!noticeDetails[noticeId]) {
         try {
-          const apiUrl = getApiUrl();
-          const response = await fetch(`${apiUrl}api/notices/${noticeId}`);
-
-          if (response.ok) {
-            const notice = await response.json();
-            setNoticeDetails(prev => ({ ...prev, [noticeId]: notice }));
-          }
+          const notice = await apiGet<Notice>(`api/notices/${noticeId}`);
+          setNoticeDetails(prev => ({ ...prev, [noticeId]: notice }));
         } catch (err) {
           console.error('Error fetching notice details:', err);
         }

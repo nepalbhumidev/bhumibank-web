@@ -16,8 +16,7 @@ import {
   ChevronRight,
   FileText
 } from 'lucide-react';
-import { getApiUrl } from '@/lib/api-client';
-import { getAuthToken } from '@/lib/auth-client';
+import { apiGet, apiRequestFormData, apiDelete } from '@/lib/api-client';
 import Image from 'next/image';
 
 interface Blog {
@@ -100,24 +99,12 @@ export default function MediaPage() {
     try {
       setLoading(true);
       setError('');
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
       
       const skip = currentPage * pageSize;
-      const response = await fetch(
-        `${apiUrl}api/blogs/admin/all?skip=${skip}&limit=${pageSize}&sort_by=published_date&sort_order=-1`,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        }
+      const data = await apiGet<Blog[]>(
+        `api/blogs/admin/all?skip=${skip}&limit=${pageSize}&sort_by=published_date&sort_order=-1`
       );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch blogs');
-      }
-
-      const data = await response.json();
+      
       setBlogs(Array.isArray(data) ? data : []);
       
       // Simple pagination: if we get less than pageSize, we're on the last page
@@ -246,9 +233,6 @@ export default function MediaPage() {
         return;
       }
 
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title);
       
@@ -275,17 +259,15 @@ export default function MediaPage() {
         formDataToSend.append('seo_data_json', JSON.stringify(formData.seo_data));
       }
 
-      const url = isEditing && editingBlogId
-        ? `${apiUrl}api/blogs/${editingBlogId}`
-        : `${apiUrl}api/blogs`;
+      const endpoint = isEditing && editingBlogId
+        ? `api/blogs/${editingBlogId}`
+        : 'api/blogs';
 
-      const response = await fetch(url, {
-        method: isEditing ? 'PUT' : 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formDataToSend,
-      });
+      const response = await apiRequestFormData(
+        endpoint,
+        formDataToSend,
+        isEditing ? 'PUT' : 'POST'
+      );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ detail: 'An error occurred' }));
@@ -305,19 +287,14 @@ export default function MediaPage() {
   // Quick publish blog (only for drafts)
   const handleTogglePublish = async (blog: Blog) => {
     try {
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      
       const formDataToSend = new FormData();
       formDataToSend.append('is_published', 'true');
 
-      const response = await fetch(`${apiUrl}api/blogs/${blog.id}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formDataToSend,
-      });
+      const response = await apiRequestFormData(
+        `api/blogs/${blog.id}`,
+        formDataToSend,
+        'PUT'
+      );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ detail: 'An error occurred' }));
@@ -333,20 +310,7 @@ export default function MediaPage() {
   // Delete blog
   const handleDelete = async (id: string) => {
     try {
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      
-      const response = await fetch(`${apiUrl}api/blogs/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete blog');
-      }
-
+      await apiDelete(`api/blogs/${id}`);
       setDeleteConfirmId(null);
       fetchBlogs();
     } catch (err) {

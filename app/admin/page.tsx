@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
 import ColorBand from '@/components/ColorBand';
-import { isAdmin, isAuthenticated, setAuth } from '@/lib/auth-client';
-import { getApiUrl } from '@/lib/api-client';
+import { isAdmin, isAuthenticated, setAuth, User } from '@/lib/auth-client';
+import { apiPost } from '@/lib/api-client';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -21,29 +21,13 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      // Get API URL and construct login endpoint
-      const apiUrl = getApiUrl();
-      const loginUrl = `${apiUrl}api/auth/login-json`;
-
-      const response = await fetch(loginUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Include credentials for CORS
-        body: JSON.stringify({
+      const data = await apiPost<{ access_token: string; user: User }>(
+        'api/auth/login-json',
+        {
           username,
           password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.detail || 'Invalid credentials. Please try again.');
-        setIsLoading(false);
-        return;
-      }
+        }
+      );
 
       // Store token and user info in localStorage
       if (data.access_token && data.user) {
@@ -55,7 +39,7 @@ export default function AdminLoginPage() {
       router.refresh();
     } catch (error) {
       console.error('Login error:', error);
-      setError('An error occurred. Please try again later.');
+      setError(error instanceof Error ? error.message : 'Invalid credentials. Please try again.');
       setIsLoading(false);
     }
   };

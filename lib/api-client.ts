@@ -104,3 +104,34 @@ export async function apiDelete<T>(endpoint: string): Promise<T> {
 
   return response.json();
 }
+
+/**
+ * Make an authenticated request with FormData (for file uploads)
+ * Note: Content-Type header is NOT set - browser will set it with boundary
+ */
+export async function apiRequestFormData(
+  endpoint: string,
+  formData: FormData,
+  method: 'POST' | 'PUT' = 'POST'
+): Promise<Response> {
+  const apiUrl = getApiUrl();
+  const url = endpoint.startsWith('http') ? endpoint : `${apiUrl}${endpoint}`;
+  const token = getAuthToken();
+
+  const headers: Record<string, string> = {};
+  // Don't set Content-Type - browser will set it with boundary for FormData
+
+  // Add authorization header if token exists
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, {
+    method,
+    headers,
+    body: formData,
+    credentials: 'include',
+  });
+
+  return response;
+}

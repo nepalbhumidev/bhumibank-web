@@ -14,8 +14,7 @@ import {
   Video,
   Play
 } from 'lucide-react';
-import { getApiUrl } from '@/lib/api-client';
-import { getAuthToken } from '@/lib/auth-client';
+import { apiGet, apiRequestFormData, apiDelete } from '@/lib/api-client';
 
 interface VideoItem {
   id: string;
@@ -84,18 +83,12 @@ export default function VideosPage() {
     try {
       setLoading(true);
       setError('');
-      const apiUrl = getApiUrl();
       
       const skip = currentPage * pageSize;
-      const response = await fetch(
-        `${apiUrl}api/videos?skip=${skip}&limit=${pageSize}&sort_by=created_at&sort_order=-1`
+      const data = await apiGet<VideoItem[]>(
+        `api/videos?skip=${skip}&limit=${pageSize}&sort_by=created_at&sort_order=-1`
       );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch videos');
-      }
-
-      const data = await response.json();
+      
       setVideos(Array.isArray(data) ? data : []);
       setTotalPages(data.length < pageSize ? currentPage + 1 : currentPage + 2);
     } catch (err) {
@@ -150,24 +143,19 @@ export default function VideosPage() {
         return;
       }
 
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
       formDataToSend.append('video_id', videoId);
 
-      const url = isEditing && editingVideoId
-        ? `${apiUrl}api/videos/${editingVideoId}`
-        : `${apiUrl}api/videos`;
+      const endpoint = isEditing && editingVideoId
+        ? `api/videos/${editingVideoId}`
+        : 'api/videos';
 
-      const response = await fetch(url, {
-        method: isEditing ? 'PUT' : 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formDataToSend,
-      });
+      const response = await apiRequestFormData(
+        endpoint,
+        formDataToSend,
+        isEditing ? 'PUT' : 'POST'
+      );
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ detail: 'An error occurred' }));
@@ -187,20 +175,7 @@ export default function VideosPage() {
   // Delete video
   const handleDelete = async (id: string) => {
     try {
-      const apiUrl = getApiUrl();
-      const token = getAuthToken();
-      
-      const response = await fetch(`${apiUrl}api/videos/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok && response.status !== 204) {
-        throw new Error('Failed to delete video');
-      }
-
+      await apiDelete(`api/videos/${id}`);
       setDeleteConfirmId(null);
       fetchVideos();
     } catch (err) {

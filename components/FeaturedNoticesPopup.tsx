@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getApiUrl } from '@/lib/api-client';
+import { apiGet } from '@/lib/api-client';
 import { X, Loader2 } from 'lucide-react';
 
 interface Notice {
@@ -26,15 +26,7 @@ export default function FeaturedNoticesPopup() {
     const fetchFeaturedNotice = async () => {
       try {
         setLoading(true);
-        const apiUrl = getApiUrl();
-        
-        const response = await fetch(`${apiUrl}api/notices/featured`);
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch featured notice');
-        }
-
-        const data = await response.json();
+        const data = await apiGet<Notice[]>('api/notices/featured');
         const featuredNotices = Array.isArray(data) ? data : [];
         
         // Get the first (and only) featured notice
