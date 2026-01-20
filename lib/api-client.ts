@@ -102,7 +102,22 @@ export async function apiDelete<T>(endpoint: string): Promise<T> {
     throw new Error(error.detail || 'Request failed');
   }
 
-  return response.json();
+  // Handle 204 No Content responses (empty body)
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
+  // Try to parse JSON, but handle empty responses gracefully
+  const text = await response.text();
+  if (!text) {
+    return undefined as T;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return undefined as T;
+  }
 }
 
 /**
