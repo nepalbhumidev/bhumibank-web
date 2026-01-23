@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import ColorBand from '../ColorBand';
 
@@ -12,7 +13,7 @@ const InvestSection = () => {
     <section className="py-12 md:py-16 lg:py-20">
       <div className="wrapper">
         {/* Heading */}
-        <div className="mb-10 md:mb-16 text-right">
+        <div className="mb-8 md:mb-12 text-right">
           <div className="inline-block">
             <h2 className="text-4xl lg:text-5xl font-bold text-primary">
               {t('heading')}
@@ -49,20 +50,20 @@ const InvestSection = () => {
               
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-end pt-4">
-                <a
-                  href="#"
+                <Link
+                  href="/forms?form=share"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded hover:bg-primary/90 transition-colors text-sm md:text-base"
+                >
+                  {t('shareForm')}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/forms?form=membership"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-medium rounded hover:bg-secondary/90 transition-colors text-sm md:text-base"
                 >
                   {t('applicationForm')}
                   <ArrowRight className="w-4 h-4" />
-                </a>
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-medium rounded hover:bg-secondary/90 transition-colors text-sm md:text-base"
-                >
-                  {t('clientForm')}
-                  <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

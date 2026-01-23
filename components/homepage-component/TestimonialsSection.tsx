@@ -100,7 +100,7 @@ const TestimonialsSection = () => {
     <section className="relative py-12 md:py-16 lg:py-20 bg-white overflow-hidden">
       <div className="wrapper relative z-10">
         {/* Header Section */}
-        <div className="mb-10 md:mb-16 relative">
+        <div className="mb-8 md:mb-12 relative">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             {/* Title and Subtitle */}
             <div className="flex-shrink-0">
@@ -108,7 +108,7 @@ const TestimonialsSection = () => {
                 {t('heading')}
               </h2>
               <ColorBand />
-              <p className="mt-4 text-gray-600 text-sm md:text-base lg:text-lg">
+              <p className="mt-2 text-gray-600 text-sm md:text-base lg:text-lg">
                 {t('subtitle')}
               </p>
             </div>

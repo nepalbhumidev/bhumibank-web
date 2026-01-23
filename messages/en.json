@@ -7,7 +7,6 @@
         "About": "About",
         "Media": "Media",
         "Gallery": "Gallery",
-        "Activities": "Activities",
         "Team": "Team",
         "Other": "Other",
         "Reach Us": "Reach Us",
@@ -18,32 +17,40 @@
     },
     "FeaturesSection": {
         "heading": "The Company",
+        "subtitle": "Transforming Nepal's landscape through sustainable development",
         "description": "Nepal Bhumi Bank will extensively link fallow lands across Nepal to productive uses. It will lease and utilize government, trust (guthi), authority, organizational, and private house lands for operations. Through integrated land plans, including purchase/sale of properties, housing, apartments, homes, malls, and towers with construction,it will implement land use policies, supporting the state via private sector involvement. Nepal Bhumi Bank Limited is a leading land banking institution promoting sustainable development nationwide. Founded with a vision to convert uneven terrains into thriving, eco-friendly communities, it specializes in land acquisition, development, and distribution, incorporating modern amenities like schools, hospitals, parks, and utilities. Our environmental commitment ensures balanced growth in every project, offering flexible investments and transparent deals tailored to clients. Through national partnerships and social responsibility, we aim to create a prosperous Nepal where land is a secure, generational asset.",
         "sustainableLandDevelopment": {
             "title": "Sustainable Land Development",
-            "description": "To develop modern, amenity-rich settlements across Nepal while conserving the environment and natural resources, and to sell or rent them for public benefit."
+            "description": "The policy focuses on efficient land use, managing land sustainably in its existing condition. Modern settlements will be developed across Nepal while conserving the environment and natural resources, and offered for sale or lease in the public interest."
         },
         "propertyAcquisition": {
             "title": "Property Acquisition and Enhancement",
-            "description": "To purchase uneven or sloped lands, develop them into valuable properties, and facilitate their sale or distribution."
+            "description": "Land owned by individuals, associations, institutions, and guthis will be scientifically utilized while ensuring asset protection. Uneven or sloped lands will be acquired and converted into valuable assets for sale or distribution."
         },
         "investmentPartnership": {
             "title": "Investment and Partnership Expansion",
-            "description": "To invest in land banking, partnerships, and related sectors nationwide, promoting economic growth through green development and social responsibility."
+            "description": "Nepal Bhumi Bank Ltd., established with NPR 250 million and targeting NPR 50 billion in private investment, offers promoter shares at a ratio of 1:100. A minimum of 1 million shares can be purchased using cash or movable and immovable assets."
         }
     },
     "VideoSection": {
-        "heading": "Videos"
+        "heading": "Videos",
+        "subtitle": "Watch our latest videos and learn more about our work"
     },
     "NewsSection": {
         "heading": "Latest News",
+        "subtitle": "Stay updated with our latest news and announcements",
         "readMore": "Read More"
+    },
+    "GallerySection": {
+        "heading": "Gallery",
+        "subtitle": "Explore our photo gallery showcasing our projects, developments, and company activities",
+        "viewGallery": "View Gallery"
     },
     "InvestSection": {
         "heading": "Root Riches in Bhumi – Invest & Thrive!",
-        "content": "By purchasing promoter shares, one can become a founding investor. At a rate of 100, one can become a promoter share member by purchasing at least 10,000 shares. To avail services, by filling out the customer form, one can access all services provided by Bhumi Bank for life. For this, to receive services and facilities, participation in the “Hatemalo Campaign” is required. To join that campaign, a one-time payment of 25,000/- (twenty-five thousand) must be made. And no additional fees are required for any services taken. When renting out lands, houses, and similar places, or leasing them, we will charge 50% as service fee. No other amount needs to be paid.We will handle the electricity, water, maintenance, and conservation ourselves.",
-        "applicationForm": "Application Form",
-        "clientForm": "Client Form"
+        "content": "By purchasing promoter shares, one can become a founding investor. At a rate of 100, one can become a promoter share member by purchasing at least 10,000 shares. To avail services, by filling out the customer form, one can access all services provided by Bhumi Bank for life. For this, to receive services and facilities, participation in the “Hatemalo Campaign” is required. To join that campaign, a one-time payment of 25,000/- (twenty-five thousand) must be made. And no additional fees are required for any services taken. When renting out lands, houses, and similar places, or leasing them, we will charge 5% as service fee. No other amount needs to be paid.We will handle the electricity, water, maintenance, and conservation ourselves.",
+        "applicationForm": "Membership Form",
+        "shareForm": "Share Form"
     },
     "TestimonialsSection": {
         "heading": "What Our Clients Say",
@@ -81,13 +88,13 @@
         "contact": "Contact",
         "reachUs": "Reach Us",
         "phone": "Phone",
-        "phoneNumber": "01-XXXXXXX, 01-XXXXXXX",
-        "whatsapp": "WhatsApp: 977-XXXXXXXXXX",
+        "phoneNumber": "01-5906810, 01-5906820",
+        "whatsapp": "977-9851430081, 977-9851430082",
         "email": "Email",
-        "email1": "info@nbb.com.np",
-        "email2": "info.rastriyakhadyabank@gmail.com",
+        "email1": "info@nepalbhumibank.com.np",
+        "email2": "nepalbhumibanklimited@gmail.com",
         "address": "Address",
-        "addressDetail": "Fulbari Marg, Lalitpur, Nepal",
+        "addressDetail": "Jorpati, Kathmandu, Nepal",
         "map": "Find Us on Map",
         "message": "Message Us",
         "additionalInformation": "Additional Information",
@@ -97,5 +104,155 @@
         "panNumber": "623517864",
         "regNo": "Reg No.",
         "regNumber": "382469/82/83"
+    },
+    "MediaPage": {
+        "heading": "Media & News",
+        "subtitle": "Stay updated with the latest news, press releases, and media coverage about Nepal Bhumi Bank Limited.",
+        "readMore": "Read More"
+    },
+    "NoticePage": {
+        "heading": "Notices",
+        "subtitle": "Stay updated with the latest notices and announcements about Nepal Bhumi Bank Limited."
+    },
+    "GalleryPage": {
+        "heading": "Gallery",
+        "subtitle": "Explore our photo gallery showcasing our projects, developments, and company activities."
+    },
+    "InformationPage": {
+        "companyOverview": {
+            "heading": "Company Overview",
+            "description": "Nepal Bhumi Bank Limited is a newly established land banking institution dedicated to promoting sustainable development across Nepal. Founded in 2025, we specialize in acquiring fallow or uneven lands and transforming them into productive, eco-friendly communities. Our approach integrates modern infrastructure with environmental conservation, ensuring that every project contributes to a greener, more prosperous Nepal. With a team of experienced professionals in real estate, finance, and sustainability, we aim to make land a secure and valuable asset for individuals, organizations, and the nation."
+        },
+        "mission": {
+            "heading": "Our Mission",
+            "description": "Our mission is to bridge unused lands with productive opportunities, fostering economic growth through ethical land management, transparent investments, and community-focused developments."
+        },
+        "vision": {
+            "heading": "Our Vision",
+            "description": "To become Nepal's leading land bank, creating sustainable settlements that balance human progress with nature's preservation for generations to come."
+        },
+        "coreValues": {
+            "heading": "Core Values",
+            "sustainability": "Sustainability: Prioritizing eco-friendly practices in all developments.",
+            "transparency": "Transparency: Ensuring clear and honest transactions for all stakeholders.",
+            "innovation": "Innovation: Using modern techniques to enhance land value.",
+            "communityFocus": "Community Focus: Building amenities that improve quality of life.",
+            "integrity": "Integrity: Upholding ethical standards in partnerships and operations."
+        },
+        "president": {
+            "heading": "Word from our President",
+            "name": "Mrs. Pabitra Kumari Pokhrel",
+            "title": "President",
+            "message": "As the President of Nepal Bhumi Bank Limited, I am honored to lead an institution dedicated to transforming Nepal's landscape through sustainable land development. Our commitment to ethical practices, environmental conservation, and community welfare drives every decision we make. We believe that land is not just a resource, but a legacy that connects generations. Through transparent operations and innovative solutions, we aim to create lasting value for our stakeholders while contributing to Nepal's sustainable development. Together, we are building a future where land becomes a secure, generational asset for all Nepalis."
+        },
+        "cta": {
+            "heading": "Ready to Transform Land into Opportunity?",
+            "description": "Discover how Nepal Bhumi Bank Limited can help you invest in Nepal's future through sustainable land development.",
+            "button": "Learn More About Our Services"
+        }
+    },
+    "WhatWeDoPage": {
+        "heading": "What We Do",
+        "subtitle": "Services by Nepal Bhumi Bank Limited",
+        "centerTitle": "Services",
+        "services": {
+            "1": {
+                "title": "Property Rental & Sales for NRNs",
+                "description": "Renting houses of NRNs (Non-Resident Nepalis) living abroad with full conservation and management, handling buying-selling, and taking complete responsibility for houses, land, apartments, and flats through mutual understanding as needed."
+            },
+            "2": {
+                "title": "Real Estate Development",
+                "description": "Buying and selling properties as needed, constructing apartments, parks, halls, malls, and towers for sale and distribution, with all necessary licenses and permits for these operations."
+            },
+            "3": {
+                "title": "Problem Land Resolution",
+                "description": "Resolving auctioned lands from banks, financial institutions, associations, and cooperatives. We work to solve problematic land issues and make every effort to resolve land disputes."
+            },
+            "4": {
+                "title": "Land & Construction Services",
+                "description": "Land consolidation, soil erosion prevention, surveying, consulting, engineering services, map preparation, and all construction-related works for houses and buildings."
+            },
+            "5": {
+                "title": "Financial Advisory Services",
+                "description": "Providing financial consultation services, arranging loans with collateral and guarantees, and offering comprehensive support in financial matters."
+            },
+            "6": {
+                "title": "Land Leasing & Utilization",
+                "description": "Leasing government, private, and organizational lands including riverbank and high-tension line areas, connecting them to productive uses."
+            },
+            "7": {
+                "title": "Property Maintenance",
+                "description": "Leasing private houses and shelters with full conservation guarantee, including repairs and maintenance for all essential systems and structures."
+            },
+            "8": {
+                "title": "Experience Partnership",
+                "description": "Engaging experienced returnees by organizing their skills, knowledge, and resources, and facilitating the exchange of diverse experiences into practical applications."
+            }
+        }
+    },
+    "FormsPage": {
+        "heading": "Forms",
+        "subtitle": "Fill out the forms below to apply for membership or share purchase.",
+        "tabs": {
+            "membership": "Membership Form",
+            "share": "Share Form"
+        },
+        "membership": {
+            "heading": "Membership Application Form",
+            "declaration": "I/We wish to register in the \"Handemalo Campaign\" of Nepal Bhumi Bank Ltd. Having seen, understood, and been informed, I will take the services and facilities provided by this bank under the said campaign by paying a one-time service fee of Rs. 25,000/- (Twenty-Five Thousand Rupees Only) willingly and voluntarily without asking for a refund later. I hereby declare that I will not ask for a refund of the said amount and have filled/submitted this registration form.",
+            "fields": {
+                "nameNepali": "Name (Nepali)",
+                "nameEnglish": "Name (English)",
+                "grandfatherName": "Grandfather's Name",
+                "fatherName": "Father's Name",
+                "addressCitizenship": "Address (as per Citizenship)",
+                "addressCurrent": "Current Address",
+                "phone": "Phone Number",
+                "whatsapp": "WhatsApp Number",
+                "email": "Email",
+                "serviceWanted": "Service Wanted",
+                "facilityWanted": "Facility Wanted"
+            },
+            "documents": {
+                "heading": "Attached Documents",
+                "requiredDocuments": "Required Documents",
+                "optionalDocuments": "Optional Documents",
+                "citizenship": "Copy of Nepali Citizenship",
+                "nationalId": "Copy of National ID",
+                "panCard": "Copy of PAN Card",
+                "photo": "Photo",
+                "serviceDocuments": "Service related documents",
+                "facilityDocuments": "Facility related documents"
+            },
+            "success": "Your application has been submitted successfully!",
+            "error": "Failed to submit application. Please try again.",
+            "fileSizeError": "File \"{fileName}\" is too large. Maximum size is 500KB.",
+            "submit": "Submit Application"
+        },
+        "share": {
+            "heading": "Share Purchase Application",
+            "comingSoon": {
+                "title": "Coming Soon",
+                "message": "We're currently developing our share purchase application system to provide you with a seamless and secure investment experience. This feature will be available shortly, allowing you to apply for shares online with ease.",
+                "submessage": "Thank you for your interest in investing with Nepal Bhumi Bank Limited. Please check back soon or contact us directly for more information.",
+                "contactUs": "Contact Us"
+            },
+            "fields": {
+                "fullName": "Full Name",
+                "email": "Email Address",
+                "phone": "Phone Number",
+                "address": "Address",
+                "citizenshipNumber": "Citizenship Number",
+                "numberOfShares": "Number of Shares",
+                "amount": "Total Amount",
+                "paymentMethod": "Payment Method",
+                "selectPaymentMethod": "Select Payment Method",
+                "bankTransfer": "Bank Transfer",
+                "cash": "Cash",
+                "cheque": "Cheque",
+                "message": "Additional Message"
+            },
+            "submit": "Submit Application"
+        }
     }
 }

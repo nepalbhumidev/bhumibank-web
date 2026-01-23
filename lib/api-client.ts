@@ -102,5 +102,72 @@ export async function apiDelete<T>(endpoint: string): Promise<T> {
     throw new Error(error.detail || 'Request failed');
   }
 
-  return response.json();
+  // Handle 204 No Content responses (empty body)
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
+  // Try to parse JSON, but handle empty responses gracefully
+  const text = await response.text();
+  if (!text) {
+    return undefined as T;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return undefined as T;
+  }
+}
+
+/**
+ * Make an authenticated request with FormData (for file uploads)
+ * Note: Content-Type header is NOT set - browser will set it with boundary
+ */
+export async function apiRequestFormData(
+  endpoint: string,
+  formData: FormData,
+  method: 'POST' | 'PUT' = 'POST'
+): Promise<Response> {
+  const apiUrl = getApiUrl();
+  const url = endpoint.startsWith('http') ? endpoint : `${apiUrl}${endpoint}`;
+  const token = getAuthToken();
+
+  const headers: Record<string, string> = {};
+  // Don't set Content-Type - browser will set it with boundary for FormData
+
+  // Add authorization header if token exists
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, {
+    method,
+    headers,
+    body: formData,
+    credentials: 'include',
+  });
+
+  return response;
+}
+
+/**
+ * Make a public request with FormData (no authentication required)
+ * Used for public forms like member applications
+ */
+export async function apiPublicFormData(
+  endpoint: string,
+  formData: FormData,
+  method: 'POST' | 'PUT' = 'POST'
+): Promise<Response> {
+  const apiUrl = getApiUrl();
+  const url = endpoint.startsWith('http') ? endpoint : `${apiUrl}${endpoint}`;
+
+  const response = await fetch(url, {
+    method,
+    body: formData,
+    credentials: 'include',
+  });
+
+  return response;
 }

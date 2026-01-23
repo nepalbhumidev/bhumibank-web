@@ -26,11 +26,6 @@ export const menuItems: MenuItem[] = [
     hasDropdown: false
   },
   { 
-    name: 'Activities', 
-    href: '/activities', 
-    hasDropdown: false
-  },
-  { 
     name: 'Team', 
     href: '/team', 
     hasDropdown: false

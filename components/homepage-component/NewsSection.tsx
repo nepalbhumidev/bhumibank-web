@@ -3,19 +3,27 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import ColorBand from '../ColorBand';
+import { apiGet } from '@/lib/api-client';
+import Link from 'next/link';
 
-interface NewsItem {
+interface BlogListItem {
   id: string;
-  image: string;
-  date: string;
   title: string;
-  description: string;
+  title_np?: string;
+  image_url: string;
+  image_urls: string[];
+  content?: string;
+  published_date?: string;
+  slug?: string;
 }
 
 const NewsSection = () => {
   const t = useTranslations('NewsSection');
+  const [newsItems, setNewsItems] = useState<BlogListItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -37,51 +45,24 @@ const NewsSection = () => {
     return () => window.removeEventListener('resize', updateItemsPerView);
   }, []);
 
-  // Dummy news data - will be replaced with backend data
-  const newsItems: NewsItem[] = [
-    {
-      id: '1',
-      image: '/caorusel-images/1-1/s-item-1.png',
-      date: '8 Jan, 2026',
-      title: 'Welcome to Nepal Bhumi Bank Limited',
-      description: 'We are excited to announce the launch of our website and introduce Nepal Bhumi Bank Limited to the community...',
-    },
-    {
-      id: '2',
-      image: '/caorusel-images/1-1/s-item-2.png',
-      date: '4 Jan, 2026',
-      title: 'Our Commitment to Serving You',
-      description: 'We are preparing to serve our customers with dedication and professionalism. Stay tuned for our upcoming opening...',
-    },
-    {
-      id: '3',
-      image: '/caorusel-images/1-1/s-item-3.png',
-      date: '31 Dec, 2025',
-      title: 'Building Our Foundation',
-      description: 'Our team is working hard to ensure we provide quality services and build strong relationships with our community...',
-    },
-    {
-      id: '4',
-      image: '/caorusel-images/1-1/s-item-4.png',
-      date: '27 Dec, 2025',
-      title: 'Get to Know Our Services',
-      description: 'Learn more about the services we will be offering and how we aim to support your financial needs...',
-    },
-    {
-      id: '5',
-      image: '/caorusel-images/1-1/s-item-2.png',
-      date: '20 Dec, 2025',
-      title: 'Stay Connected With Us',
-      description: 'Follow our updates and announcements as we prepare to serve you better. We look forward to connecting with you...',
-    },
-    {
-      id: '6',
-      image: '/caorusel-images/1-1/s-item-3.png',
-      date: '15 Dec, 2025',
-      title: 'Our Vision for the Future',
-      description: 'We believe in building lasting partnerships and creating value for our customers and the community we serve...',
-    },
-  ];
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        const data = await apiGet<BlogListItem[]>('api/blogs?limit=6&sort_by=published_date&sort_order=-1');
+
+        setNewsItems(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching blogs:', err);
+        setError('Failed to load news items');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
 
   const maxIndex = Math.max(0, newsItems.length - itemsPerView);
 
@@ -119,7 +100,7 @@ const NewsSection = () => {
 
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const minSwipeDistance = 50;
 
@@ -135,19 +116,22 @@ const NewsSection = () => {
     <section className="py-12 md:py-16 lg:py-20 bg-primary relative">
       <div className="wrapper relative z-10">
         {/* Heading */}
-        <div className="mb-10 md:mb-16 relative">
+        <div className="mb-8 md:mb-12 relative">
           <div className="inline-block">
             <h2 className="text-4xl lg:text-5xl font-bold text-white">
               {t('heading')}
             </h2>
-            <ColorBand rightColor="secondary"/>
+            <ColorBand rightColor="secondary" />
           </div>
-          
+          <p className="mt-2 text-white/90 text-sm md:text-base lg:text-lg">
+            {t('subtitle')}
+          </p>
+
           {/* Navigation Controls - Desktop */}
           <div className="hidden md:flex items-center gap-3 absolute bottom-0 right-0">
             <button
               onClick={goToPrevious}
-              className="w-12 h-12 rounded-full bg-white border-2 border-white hover:border-secondary hover:bg-secondary text-primary flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-12 h-12 rounded-full bg-white border-2 border-white hover:border-secondary hover:bg-secondary text-primary flex items-center justify-center transition-all duration-500 shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label="Previous news"
               disabled={currentIndex === 0}
             >
@@ -155,7 +139,7 @@ const NewsSection = () => {
             </button>
             <button
               onClick={goToNext}
-              className="w-12 h-12 rounded-full bg-secondary text-white hover:bg-secondary/90 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl"
+              className="w-12 h-12 rounded-full bg-secondary text-white hover:bg-secondary/90 flex items-center justify-center transition-all duration-500 shadow-md hover:shadow-xl"
               aria-label="Next news"
             >
               <ChevronRight className="w-6 h-6" />
@@ -164,7 +148,26 @@ const NewsSection = () => {
         </div>
 
         {/* News Carousel */}
-        <div className="relative">
+        <div className="relative min-h-[400px]">
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center z-20">
+              <Loader2 className="w-10 h-10 text-white animate-spin" />
+            </div>
+          )}
+
+          {error && (
+            <div className="absolute inset-0 flex items-center justify-center z-20 text-white text-center">
+              <div>
+                <p className="text-xl font-semibold mb-2">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="px-4 py-2 bg-secondary rounded hover:bg-secondary/90 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Carousel Container */}
           <div
@@ -180,47 +183,53 @@ const NewsSection = () => {
               }}
             >
               {newsItems.map((item) => (
-                <div
+                <Link
                   key={item.id}
+                  href={`/media/${item.slug}`}
                   className="flex-shrink-0 px-2"
-                  style={{ width: `${100 / itemsPerView}%`}}
+                  style={{ width: `${100 / itemsPerView}%` }}
                 >
                   <div className="h-full">
-                    <div className="group bg-white border border-b-0 border-white hover:bg-primary transition-all duration-300 overflow-hidden h-full flex flex-col shadow-md cursor-pointer">
+                    <div className="group bg-white border border-b-0 border-white hover:bg-primary transition-all duration-500 overflow-hidden h-full flex flex-col shadow-md cursor-pointer">
                       {/* Image Container */}
                       <div className="relative aspect-[16/9] overflow-hidden">
                         <Image
-                          src={item.image}
+                          src={item.image_url}
                           alt={item.title}
                           fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         {/* Date Badge */}
                         <div className="absolute bottom-0 right-0 bg-secondary text-white px-3 py-1 text-xs font-medium">
-                          {item.date}
+                          {item.published_date
+                            ? new Intl.DateTimeFormat('en-GB', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            }).format(new Date(item.published_date))
+                            : 'Recently'}
                         </div>
                       </div>
 
                       {/* Content */}
                       <div className="flex-1 p-4 flex flex-col">
-                        <h3 className="text-md md:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-300 line-clamp-2">
+                        <h3 className="text-md md:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-500 line-clamp-2">
                           {item.title}
                         </h3>
-                        <p className="text-gray-700 text-sm md:text-base text-gray-600 group-hover:text-white/90 mb-3 flex-1 transition-colors duration-300 line-clamp-3">
-                          {item.description}
+                        <p className="text-sm md:text-base text-gray-600 group-hover:text-white/90 mb-4 transition-colors duration-500 line-clamp-3">
+                          {item.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}
                         </p>
-                        
                         {/* Read More Button */}
-                        <button className="self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base font-medium rounded hover:bg-secondary/90 transition-colors">
+                        <div className="mt-auto self-start inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm md:text-base rounded hover:bg-secondary/90 transition-colors group-hover:gap-3">
                           {t('readMore')}
                           <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
+                        </div>
                       </div>
                       {/* Bottom Band */}
-                      <div className="h-2 bg-secondary"></div>
+                      <div className="h-2 bg-secondary transform origin-left transition-transform duration-500 group-hover:scale-x-110"></div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -231,11 +240,10 @@ const NewsSection = () => {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`transition-all duration-300 rounded-full ${
-                  index === currentIndex
-                    ? 'w-8 h-2 bg-white'
-                    : 'w-2 h-2 bg-white/50'
-                }`}
+                className={`transition-all duration-500 rounded-full ${index === currentIndex
+                  ? 'w-8 h-2 bg-white'
+                  : 'w-2 h-2 bg-white/50'
+                  }`}
                 aria-label={`Go to news ${index + 1}`}
               />
             ))}
