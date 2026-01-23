@@ -147,7 +147,7 @@ export default function ReachUsPage() {
             </h2>
             <div className="rounded-sm overflow-hidden shadow-sm">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1355.1806611346808!2d85.30497793640221!3d27.662542947661034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18291f8f6929%3A0x7d790ffa60f0616c!2sNakkhu%20Bridge!5e0!3m2!1sen!2snp!4v1768296979226!5m2!1sen!2snp"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d371.4042615364678!2d85.35049293473527!3d27.67363603587832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19766be2eacd%3A0x8491a70bd95c5791!2sRastriya%20Khadya%20Bank%20Ltd!5e0!3m2!1sen!2snp!4v1769143620110!5m2!1sen!2snp"
                 width="100%"
                 height="450"
                 style={{ border: 0 }}

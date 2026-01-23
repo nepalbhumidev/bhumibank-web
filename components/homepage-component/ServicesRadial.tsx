@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Home, Building2, Scale, Hammer, Wallet, MapPin, Wrench } from 'lucide-react';
+import { Home, Building2, Scale, Hammer, Wallet, MapPin, Wrench, Handshake } from 'lucide-react';
 
 const ServicesRadial = () => {
   const t = useTranslations('WhatWeDoPage');
@@ -14,15 +14,16 @@ const ServicesRadial = () => {
     { id: '5', icon: <Wallet className="w-6 h-6" /> },
     { id: '6', icon: <MapPin className="w-6 h-6" /> },
     { id: '7', icon: <Wrench className="w-6 h-6" /> },
+    { id: '8', icon: <Handshake className="w-6 h-6" /> },
   ];
 
   return (
     <div className="relative mb-16 md:mb-20">
       {/* Desktop: Radial Layout */}
-      <div className="hidden lg:block relative min-h-[700px]">
+      <div className="hidden lg:block relative min-h-[800px]">
         {/* Center Circle */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-primary rounded-full flex items-center justify-center z-20 shadow-sm">
-          <span className="text-white font-bold text-lg text-center px-4">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-primary rounded-full flex items-center justify-center z-20 shadow-sm">
+          <span className="text-white font-bold text-base text-center px-3">
             {t('centerTitle')}
           </span>
         </div>
@@ -30,29 +31,48 @@ const ServicesRadial = () => {
         {/* Services positioned around the center */}
         {services.map((service, index) => {
           const totalServices = services.length;
+          // Start from top (-90 degrees) and go clockwise
           const angle = (index * (360 / totalServices) - 90) * (Math.PI / 180);
-          const radius = 320;
+          const radius = 340;
           let x = Math.cos(angle) * radius;
           let y = Math.sin(angle) * radius;
 
-          // Custom offsets for specific services
-          // Service 2 (Real Estate Development) - move wider and down
-          if (service.id === '2') {
-            x += 40;
-            y += 30;
+          // Custom offsets for better spacing with 8 services
+          // Top service (1) - move up slightly
+          if (service.id === '1') {
+            y -= 20;
           }
-          // Service 7 (Property Maintenance & Conservation) - move wider and down
+          // Service 2 (Real Estate Development) - move right and down
+          if (service.id === '2') {
+            x += 50;
+            y += 20;
+          }
+          // Service 3 (Problem Land Resolution) - move right
+          if (service.id === '3') {
+            x += 40;
+          }
+          // Service 4 (Land & Construction Services) - move right and up
+          if (service.id === '4') {
+            x += 50;
+            y -= 20;
+          }
+          // Service 5 (Financial Advisory) - move down
+          if (service.id === '5') {
+            y += 20;
+          }
+          // Service 6 (Land Leasing) - move left and up
+          if (service.id === '6') {
+            x -= 50;
+            y -= 20;
+          }
+          // Service 7 (Property Maintenance) - move left
           if (service.id === '7') {
             x -= 40;
-            y += 30;
           }
-          // Service 4 (Land & Construction Services) - spread wider
-          if (service.id === '4') {
-            x += 10;
-          }
-          // Service 5 (Financial Advisory Services) - spread wider
-          if (service.id === '5') {
-            x -= 10;
+          // Service 8 (Experience Partnership) - move left and down
+          if (service.id === '8') {
+            x -= 50;
+            y += 20;
           }
 
           return (
@@ -77,7 +97,7 @@ const ServicesRadial = () => {
               />
               
               {/* Service Card */}
-              <div className="relative z-10 w-68 bg-white border border-secondary/20 hover:border-secondary p-4 shadow-sm hover:shadow-lg transition-all duration-300 group">
+              <div className="relative z-10 w-64 bg-white border border-secondary/20 hover:border-secondary p-4 shadow-sm hover:shadow-lg transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-secondary/10 px-2 group-hover:bg-secondary text-secondary group-hover:text-white flex items-center justify-center transition-colors duration-300">
                     {service.icon}

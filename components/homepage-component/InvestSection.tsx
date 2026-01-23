@@ -53,14 +53,14 @@ const InvestSection = () => {
                   href="#"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded hover:bg-primary/90 transition-colors text-sm md:text-base"
                 >
-                  {t('applicationForm')}
+                  {t('shareForm')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
                   href="#"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-medium rounded hover:bg-secondary/90 transition-colors text-sm md:text-base"
                 >
-                  {t('clientForm')}
+                  {t('applicationForm')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
