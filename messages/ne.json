@@ -95,7 +95,7 @@
         "email1": "info@nepalbhumibank.com.np",
         "email2": "nepalbhumibanklimited@gmail.com",
         "address": "ठेगाना",
-        "addressDetail": "जोरपाटी, काठमाडौं, नेपाल",
+        "addressDetail": "जडिबुटि, काठमाडौं, नेपाल",
         "map": "हाम्रो ठेगाना नक्सा",
         "message": "हाम्रो सम्पर्क फारम",
         "additionalInformation": "अतिरिक्त जानकारी",
@@ -211,8 +211,8 @@
                 "phone": "फोन नंः",
                 "whatsapp": "ह्वाट्सएप नं.",
                 "email": "इमेल",
-                "serviceWanted": "लिन चाकेको सेवो",
-                "facilityWanted": "लिन चाकेको सुविधा"
+                "serviceWanted": "लिन चाहेको सेवो",
+                "facilityWanted": "लिन चाहेको सुविधा"
             },
             "documents": {
                 "heading": "संलग्न कागजातहरु",
