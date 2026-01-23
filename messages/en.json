@@ -21,15 +21,15 @@
         "description": "Nepal Bhumi Bank will extensively link fallow lands across Nepal to productive uses. It will lease and utilize government, trust (guthi), authority, organizational, and private house lands for operations. Through integrated land plans, including purchase/sale of properties, housing, apartments, homes, malls, and towers with construction,it will implement land use policies, supporting the state via private sector involvement. Nepal Bhumi Bank Limited is a leading land banking institution promoting sustainable development nationwide. Founded with a vision to convert uneven terrains into thriving, eco-friendly communities, it specializes in land acquisition, development, and distribution, incorporating modern amenities like schools, hospitals, parks, and utilities. Our environmental commitment ensures balanced growth in every project, offering flexible investments and transparent deals tailored to clients. Through national partnerships and social responsibility, we aim to create a prosperous Nepal where land is a secure, generational asset.",
         "sustainableLandDevelopment": {
             "title": "Sustainable Land Development",
-            "description": "To develop modern, amenity-rich settlements across Nepal while conserving the environment and natural resources, and to sell or rent them for public benefit."
+            "description": "The policy focuses on efficient land use, managing land sustainably in its existing condition. Modern settlements will be developed across Nepal while conserving the environment and natural resources, and offered for sale or lease in the public interest."
         },
         "propertyAcquisition": {
             "title": "Property Acquisition and Enhancement",
-            "description": "To purchase uneven or sloped lands, develop them into valuable properties, and facilitate their sale or distribution."
+            "description": "Land owned by individuals, associations, institutions, and guthis will be scientifically utilized while ensuring asset protection. Uneven or sloped lands will be acquired and converted into valuable assets for sale or distribution."
         },
         "investmentPartnership": {
             "title": "Investment and Partnership Expansion",
-            "description": "To invest in land banking, partnerships, and related sectors nationwide, promoting economic growth through green development and social responsibility."
+            "description": "Nepal Bhumi Bank Ltd., established with NPR 250 million and targeting NPR 50 billion in private investment, offers promoter shares at a ratio of 1:100. A minimum of 1 million shares can be purchased using cash or movable and immovable assets."
         }
     },
     "VideoSection": {
@@ -88,13 +88,13 @@
         "contact": "Contact",
         "reachUs": "Reach Us",
         "phone": "Phone",
-        "phoneNumber": "01-XXXXXXX, 01-XXXXXXX",
-        "whatsapp": "WhatsApp: 977-XXXXXXXXXX",
+        "phoneNumber": "01-5906810, 01-5906820",
+        "whatsapp": "977-9851430081, 977-9851430082",
         "email": "Email",
-        "email1": "info@nbb.com.np",
-        "email2": "info.rastriyakhadyabank@gmail.com",
+        "email1": "info@nepalbhumibank.com.np",
+        "email2": "nepalbhumibanklimited@gmail.com",
         "address": "Address",
-        "addressDetail": "Fulbari Marg, Lalitpur, Nepal",
+        "addressDetail": "Jorpati, Kathmandu, Nepal",
         "map": "Find Us on Map",
         "message": "Message Us",
         "additionalInformation": "Additional Information",
@@ -178,15 +178,15 @@
             },
             "6": {
                 "title": "Land Leasing & Utilization",
-                "description": "Leasing government, non-government, organizational, trust (guthi), riverbank, and authority-acquired lands under high tension lines, as well as private lands, connecting them to productive uses."
+                "description": "Leasing government, private, and organizational lands including riverbank and high-tension line areas, connecting them to productive uses."
             },
             "7": {
-                "title": "Property Maintenance & Conservation",
-                "description": "Taking private houses and shelters on lease with full conservation guarantee including painting, electricity, plumbing, bathroom, railing, and door-window repairs and maintenance."
+                "title": "Property Maintenance",
+                "description": "Leasing private houses and shelters with full conservation guarantee, including repairs and maintenance for all essential systems and structures."
             },
             "8": {
                 "title": "Experience Partnership",
-                "description": "To engage distinguished individuals who have returned with experience from various countries by organizing and managing their skills, knowledge, and earnings, and mobilizing them for necessary activities. To transform diverse experiences into practical skills and facilitate their exchange and sharing."
+                "description": "Engaging experienced returnees by organizing their skills, knowledge, and resources, and facilitating the exchange of diverse experiences into practical applications."
             }
         }
     }

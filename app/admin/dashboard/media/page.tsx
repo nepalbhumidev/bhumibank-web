@@ -232,7 +232,7 @@ export default function MediaPage() {
         setFormLoading(false);
         return;
       }
-
+      
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title);
       

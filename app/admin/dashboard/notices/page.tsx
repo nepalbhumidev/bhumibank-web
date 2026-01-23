@@ -118,12 +118,12 @@ export default function NoticesPage() {
     // Fetch full notice details if needed
     try {
       const fullNotice = await apiGet<Notice>(`api/notices/${notice.id}`);
-      setFormData({
-        title: fullNotice.title || '',
-        image: null,
-        featured: fullNotice.featured || false,
-      });
-      setExistingImageUrl(fullNotice.image_url || null);
+        setFormData({
+          title: fullNotice.title || '',
+          image: null,
+          featured: fullNotice.featured || false,
+        });
+        setExistingImageUrl(fullNotice.image_url || null);
     } catch (err) {
       console.error('Error fetching notice details:', err);
     }
@@ -174,7 +174,7 @@ export default function NoticesPage() {
 
       // For new notices, image is optional but recommended
       // For editing, if no new image and no existing image, that's okay (title-only update)
-
+      
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title.trim());
       formDataToSend.append('featured', formData.featured.toString());

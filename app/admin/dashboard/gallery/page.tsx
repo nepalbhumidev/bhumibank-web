@@ -384,7 +384,7 @@ export default function GalleryPage() {
           </button>
         </div>
       </div>
-
+      
       {/* Search Bar */}
       <div className="p-6 border-b border-gray-200">
         <div className="relative">
@@ -413,7 +413,7 @@ export default function GalleryPage() {
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
         ) : filteredGalleries.length === 0 ? (
-          <div className="text-center py-12">
+      <div className="text-center py-12">
             <Folder className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-500 text-lg">No galleries found</p>
             <p className="text-gray-400 text-sm mt-2">

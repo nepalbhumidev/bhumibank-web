@@ -59,7 +59,7 @@ export default function NoticesPage() {
       if (!noticeDetails[noticeId]) {
         try {
           const notice = await apiGet<Notice>(`api/notices/${noticeId}`);
-          setNoticeDetails(prev => ({ ...prev, [noticeId]: notice }));
+            setNoticeDetails(prev => ({ ...prev, [noticeId]: notice }));
         } catch (err) {
           console.error('Error fetching notice details:', err);
         }

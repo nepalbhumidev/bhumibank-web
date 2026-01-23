@@ -23,7 +23,7 @@ const ServicesRadial = () => {
       <div className="hidden lg:block relative min-h-[800px]">
         {/* Center Circle */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-primary rounded-full flex items-center justify-center z-20 shadow-sm">
-          <span className="text-white font-bold text-base text-center px-3">
+          <span className="text-white font-semibold text-xl text-center px-3">
             {t('centerTitle')}
           </span>
         </div>

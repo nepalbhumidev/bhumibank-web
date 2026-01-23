@@ -88,7 +88,7 @@ export default function VideosPage() {
       const data = await apiGet<VideoItem[]>(
         `api/videos?skip=${skip}&limit=${pageSize}&sort_by=created_at&sort_order=-1`
       );
-      
+
       setVideos(Array.isArray(data) ? data : []);
       setTotalPages(data.length < pageSize ? currentPage + 1 : currentPage + 2);
     } catch (err) {
@@ -142,7 +142,7 @@ export default function VideosPage() {
         setFormLoading(false);
         return;
       }
-
+      
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
       formDataToSend.append('video_id', videoId);

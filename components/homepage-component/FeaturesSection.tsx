@@ -59,7 +59,7 @@ const FeaturesSection = () => {
               className="group flex flex-col bg-white hover:bg-primary border border-primary hover:border-white shadow-md overflow-hidden h-full transition-all duration-300"
             >
               {/* Card Content */}
-              <div className="flex-1 p-6 md:p-8 flex flex-col">
+              <div className="flex-1 p-4 md:p-6 flex flex-col">
                 {/* Icon */}
                 <div className="w-16 h-16 mb-6 text-primary group-hover:text-white flex-shrink-0 flex items-center justify-center transition-colors duration-300">
                   {feature.icon}
