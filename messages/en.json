@@ -189,5 +189,70 @@
                 "description": "Engaging experienced returnees by organizing their skills, knowledge, and resources, and facilitating the exchange of diverse experiences into practical applications."
             }
         }
+    },
+    "FormsPage": {
+        "heading": "Forms",
+        "subtitle": "Fill out the forms below to apply for membership or share purchase.",
+        "tabs": {
+            "membership": "Membership Form",
+            "share": "Share Form"
+        },
+        "membership": {
+            "heading": "Membership Application Form",
+            "declaration": "I/We wish to register in the \"Handemalo Campaign\" of Nepal Bhumi Bank Ltd. Having seen, understood, and been informed, I will take the services and facilities provided by this bank under the said campaign by paying a one-time service fee of Rs. 25,000/- (Twenty-Five Thousand Rupees Only) willingly and voluntarily without asking for a refund later. I hereby declare that I will not ask for a refund of the said amount and have filled/submitted this registration form.",
+            "fields": {
+                "nameNepali": "Name (Nepali)",
+                "nameEnglish": "Name (English)",
+                "grandfatherName": "Grandfather's Name",
+                "fatherName": "Father's Name",
+                "addressCitizenship": "Address (as per Citizenship)",
+                "addressCurrent": "Current Address",
+                "phone": "Phone Number",
+                "whatsapp": "WhatsApp Number",
+                "email": "Email",
+                "serviceWanted": "Service Wanted",
+                "facilityWanted": "Facility Wanted"
+            },
+            "documents": {
+                "heading": "Attached Documents",
+                "requiredDocuments": "Required Documents",
+                "optionalDocuments": "Optional Documents",
+                "citizenship": "Copy of Nepali Citizenship",
+                "nationalId": "Copy of National ID",
+                "panCard": "Copy of PAN Card",
+                "photo": "Photo",
+                "serviceDocuments": "Service related documents",
+                "facilityDocuments": "Facility related documents"
+            },
+            "success": "Your application has been submitted successfully!",
+            "error": "Failed to submit application. Please try again.",
+            "fileSizeError": "File \"{fileName}\" is too large. Maximum size is 500KB.",
+            "submit": "Submit Application"
+        },
+        "share": {
+            "heading": "Share Purchase Application",
+            "comingSoon": {
+                "title": "Coming Soon",
+                "message": "We're currently developing our share purchase application system to provide you with a seamless and secure investment experience. This feature will be available shortly, allowing you to apply for shares online with ease.",
+                "submessage": "Thank you for your interest in investing with Nepal Bhumi Bank Limited. Please check back soon or contact us directly for more information.",
+                "contactUs": "Contact Us"
+            },
+            "fields": {
+                "fullName": "Full Name",
+                "email": "Email Address",
+                "phone": "Phone Number",
+                "address": "Address",
+                "citizenshipNumber": "Citizenship Number",
+                "numberOfShares": "Number of Shares",
+                "amount": "Total Amount",
+                "paymentMethod": "Payment Method",
+                "selectPaymentMethod": "Select Payment Method",
+                "bankTransfer": "Bank Transfer",
+                "cash": "Cash",
+                "cheque": "Cheque",
+                "message": "Additional Message"
+            },
+            "submit": "Submit Application"
+        }
     }
 }

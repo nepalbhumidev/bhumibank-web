@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { ArrowUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -36,12 +37,12 @@ const StickyActions = () => {
         className="fixed -right-[54px] top-1/2 -translate-y-1/2 z-40 w-[141px]"
         style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
       >
-        <a
-          href="#"
+        <Link
+          href="/forms?form=membership"
           className="inline-block bg-secondary text-white text-sm hover:bg-secondary/90 transition-colors px-4 py-2 text-center"
         >
           <span className="whitespace-nowrap">{t('applicationForm')}</span>
-        </a>
+        </Link>
       </div>
 
 

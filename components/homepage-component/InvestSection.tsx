@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import ColorBand from '../ColorBand';
 
@@ -49,20 +50,20 @@ const InvestSection = () => {
               
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-end pt-4">
-                <a
-                  href="#"
+                <Link
+                  href="/forms?form=share"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded hover:bg-primary/90 transition-colors text-sm md:text-base"
                 >
                   {t('shareForm')}
                   <ArrowRight className="w-4 h-4" />
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/forms?form=membership"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-medium rounded hover:bg-secondary/90 transition-colors text-sm md:text-base"
                 >
                   {t('applicationForm')}
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

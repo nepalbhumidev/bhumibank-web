@@ -150,3 +150,24 @@ export async function apiRequestFormData(
 
   return response;
 }
+
+/**
+ * Make a public request with FormData (no authentication required)
+ * Used for public forms like member applications
+ */
+export async function apiPublicFormData(
+  endpoint: string,
+  formData: FormData,
+  method: 'POST' | 'PUT' = 'POST'
+): Promise<Response> {
+  const apiUrl = getApiUrl();
+  const url = endpoint.startsWith('http') ? endpoint : `${apiUrl}${endpoint}`;
+
+  const response = await fetch(url, {
+    method,
+    body: formData,
+    credentials: 'include',
+  });
+
+  return response;
+}
