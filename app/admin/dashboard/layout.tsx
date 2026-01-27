@@ -13,7 +13,8 @@ import {
   BookOpen, 
   PanelLeftClose, 
   PanelLeftOpen,
-  LogOut
+  LogOut,
+  Users
 } from 'lucide-react';
 import { clearAuth, isAuthenticated, isAdmin } from '@/lib/auth-client';
 
@@ -30,6 +31,7 @@ const menuItems: MenuItem[] = [
   { name: 'News/Media', href: '/admin/dashboard/media', icon: <ImageIcon className="w-5 h-5" /> },
   { name: 'Videos', href: '/admin/dashboard/videos', icon: <Video className="w-5 h-5" /> },
   { name: 'Gallery', href: '/admin/dashboard/gallery', icon: <Images className="w-5 h-5" /> },
+  { name: 'Applications', href: '/admin/dashboard/applications', icon: <Users className="w-5 h-5" /> },
 ];
 
 export default function DashboardLayout({
