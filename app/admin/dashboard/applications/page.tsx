@@ -173,7 +173,7 @@ export default function ApplicationsPage() {
       <div className="p-6 border-b border-gray-200">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Applications Management</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Membership Applications</h1>
             <p className="text-sm text-gray-600 mt-1">View and manage membership applications</p>
           </div>
           <div className="flex items-center gap-2">
@@ -393,13 +393,13 @@ export default function ApplicationsPage() {
                   </div>
                   <div>
                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Grandfather's Name
+                      Grandfather&apos;s Name
                     </label>
                     <p className="text-gray-900 mt-1">{selectedApplication.grandfather_name}</p>
                   </div>
                   <div>
                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Father's Name
+                      Father&apos;s Name
                     </label>
                     <p className="text-gray-900 mt-1">{selectedApplication.father_name}</p>
                   </div>
