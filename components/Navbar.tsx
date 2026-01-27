@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import NavigationMenu from './NavigationMenu';
 import { socialMediaLinks } from '@/constants/socialMedia';
 import { useTranslations } from 'next-intl';
@@ -14,7 +15,7 @@ const Navbar = () => {
         <div className="wrapper py-4">
           <div className="flex items-center justify-between">
             {/* Logo and Company Name */}
-            <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center gap-4">
               {/* Logo */}
               <div className="flex-shrink-0">
                 <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center overflow-hidden">
@@ -40,7 +41,7 @@ const Navbar = () => {
                   {t('slogan')}
                 </p>
               </div>
-            </div>
+            </Link>
 
             {/* Social Media Icons - Right (Desktop Only) */}
             <div className="hidden lg:flex flex-shrink-0 items-center gap-4">

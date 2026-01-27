@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Calendar, ArrowLeft, Loader2, Share2, Facebook, Twitter, Link as LinkIcon } from 'lucide-react';
+import { Calendar, ArrowLeft, Loader2, Share2, Facebook, Twitter, Link as LinkIcon, Check } from 'lucide-react';
 import { apiGet } from '@/lib/api-client';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -41,6 +41,7 @@ export default function BlogDetailPage() {
     const [blog, setBlog] = useState<BlogDetail | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [linkCopied, setLinkCopied] = useState(false);
 
     useEffect(() => {
         const fetchBlogDetail = async () => {
@@ -114,7 +115,7 @@ export default function BlogDetailPage() {
             <Navbar />
             <main className="min-h-screen bg-white">
                 {/* Hero / Cover Image */}
-                <div className="relative w-full h-[40vh] md:h-[60vh] bg-gray-900">
+                <div className="relative w-full bg-gray-900">
                     <Image
                         src={blog.image_url}
                         alt={blog.title}
@@ -123,8 +124,8 @@ export default function BlogDetailPage() {
                         priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <div className="absolute bottom-0 left-0 w-full">
-                        <div className="wrapper pb-12">
+                    <div className="relative z-10">
+                        <div className="wrapper pt-12 md:pt-16 lg:pt-20 pb-12 md:pb-16 lg:pb-20">
                             <Link
                                 href="/media"
                                 className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors text-sm font-medium"
@@ -132,22 +133,22 @@ export default function BlogDetailPage() {
                                 <ArrowLeft className="w-4 h-4" />
                                 Media Center
                             </Link>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight max-w-5xl">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 leading-tight max-w-5xl break-words">
                                 {blog.title}
                             </h1>
                             {blog.title_np && (
-                                <h2 className="text-xl md:text-3xl font-medium text-white/90 mb-6 font-nebali">
+                                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/90 mb-6 font-nebali break-words">
                                     {blog.title_np}
                                 </h2>
                             )}
-                            <div className="flex flex-wrap items-center gap-6 text-white/90 text-sm md:text-base">
+                            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-white/90 text-sm md:text-base">
                                 <div className="flex items-center gap-2">
-                                    <Calendar className="w-5 h-5 text-secondary" />
+                                    <Calendar className="w-5 h-5 text-secondary flex-shrink-0" />
                                     <span>{formattedDate}</span>
                                 </div>
                                 {blog.author && (
                                     <div className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-secondary flex-shrink-0" />
                                         <span>By {blog.author}</span>
                                     </div>
                                 )}
@@ -209,12 +210,19 @@ export default function BlogDetailPage() {
                                     <button
                                         onClick={() => {
                                             navigator.clipboard.writeText(shareUrl);
-                                            alert('Link copied to clipboard!');
+                                            setLinkCopied(true);
+                                            setTimeout(() => setLinkCopied(false), 2000);
                                         }}
                                         className="flex items-center gap-3 w-full p-3 bg-white border border-gray-200 rounded-xl hover:bg-primary hover:text-white hover:border-primary transition-all group"
                                     >
-                                        <LinkIcon className="w-5 h-5 text-primary group-hover:text-white" />
-                                        <span className="font-medium">Copy Link</span>
+                                        {linkCopied ? (
+                                            <Check className="w-5 h-5 flex-shrink-0 text-green-600 group-hover:text-white" />
+                                        ) : (
+                                            <LinkIcon className="w-5 h-5 flex-shrink-0 text-primary group-hover:text-white" />
+                                        )}
+                                        <span className="font-medium">
+                                            {linkCopied ? 'Link Copied!' : 'Copy Link'}
+                                        </span>
                                     </button>
                                 </div>
                             </div>
