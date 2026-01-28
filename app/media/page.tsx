@@ -20,11 +20,22 @@ interface BlogListItem {
   slug?: string;
 }
 
+// Helper function to get locale from cookie
+const getLocaleFromCookie = (): 'ne' | 'en' => {
+  if (typeof document === 'undefined') return 'ne';
+  const cookieValue = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('NEXT_LOCALE='))
+    ?.split('=')[1];
+  return cookieValue === 'en' ? 'en' : 'ne';
+};
+
 export default function MediaPage() {
   const t = useTranslations('MediaPage');
   const [newsItems, setNewsItems] = useState<BlogListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [locale] = useState<'ne' | 'en'>(getLocaleFromCookie());
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -102,8 +113,8 @@ export default function MediaPage() {
 
                     {/* Content */}
                     <div className="flex-1 p-4 flex flex-col">
-                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-white mb-3 transition-colors duration-300 line-clamp-2 leading-tight">
-                        {item.title}
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-white mb-2 pt-1 transition-colors duration-300 line-clamp-2 leading-tight">
+                        {locale === 'ne' && item.title_np ? item.title_np : item.title}
                       </h3>
                       <p className="text-gray-600 group-hover:text-white/90 mb-4 transition-colors duration-300 line-clamp-3 text-sm md:text-base leading-relaxed">
                         {item.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}

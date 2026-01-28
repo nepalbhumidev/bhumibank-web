@@ -39,7 +39,8 @@
     "NewsSection": {
         "heading": "Latest News",
         "subtitle": "Stay updated with our latest news and announcements",
-        "readMore": "Read More"
+        "readMore": "Read More",
+        "backToMedia": "More Media"
     },
     "GallerySection": {
         "heading": "Gallery",

@@ -19,6 +19,16 @@ interface BlogListItem {
   slug?: string;
 }
 
+// Helper function to get locale from cookie
+const getLocaleFromCookie = (): 'ne' | 'en' => {
+  if (typeof document === 'undefined') return 'ne';
+  const cookieValue = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('NEXT_LOCALE='))
+    ?.split('=')[1];
+  return cookieValue === 'en' ? 'en' : 'ne';
+};
+
 const NewsSection = () => {
   const t = useTranslations('NewsSection');
   const [newsItems, setNewsItems] = useState<BlogListItem[]>([]);
@@ -28,6 +38,7 @@ const NewsSection = () => {
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
+  const [locale] = useState<'ne' | 'en'>(getLocaleFromCookie());
 
   useEffect(() => {
     const updateItemsPerView = () => {
@@ -214,7 +225,7 @@ const NewsSection = () => {
                       {/* Content */}
                       <div className="flex-1 p-4 flex flex-col">
                         <h3 className="text-md md:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-500 line-clamp-2">
-                          {item.title}
+                          {locale === 'ne' && item.title_np ? item.title_np : item.title}
                         </h3>
                         <p className="text-sm md:text-base text-gray-600 group-hover:text-white/90 mb-4 transition-colors duration-500 line-clamp-3">
                           {item.content?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()}
