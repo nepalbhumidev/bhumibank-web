@@ -38,10 +38,21 @@ export default function BlogDetailPage() {
     const router = useRouter();
     const t = useTranslations('NewsSection');
 
+    // Helper function to get locale from cookie
+    const getLocaleFromCookie = (): 'ne' | 'en' => {
+        if (typeof document === 'undefined') return 'ne';
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('NEXT_LOCALE='))
+            ?.split('=')[1];
+        return cookieValue === 'en' ? 'en' : 'ne';
+    };
+
     const [blog, setBlog] = useState<BlogDetail | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [linkCopied, setLinkCopied] = useState(false);
+    const [locale] = useState<'ne' | 'en'>(getLocaleFromCookie());
 
     useEffect(() => {
         const fetchBlogDetail = async () => {
@@ -91,7 +102,7 @@ export default function BlogDetailPage() {
                             className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
                         >
                             <ArrowLeft className="w-4 h-4" />
-                            Back to Media
+                            {t('backToMedia')}
                         </Link>
                     </div>
                 </div>
@@ -131,17 +142,31 @@ export default function BlogDetailPage() {
                                 className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors text-sm font-medium"
                             >
                                 <ArrowLeft className="w-4 h-4" />
-                                Media Center
+                                {t('backToMedia')}
                             </Link>
                             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 leading-tight max-w-5xl break-words">
-                                {blog.title}
+                                {locale === 'ne' && blog.title_np ? blog.title_np : blog.title}
                             </h1>
-                            {blog.title_np && (
+                            {locale === 'ne' && blog.title && blog.title_np && (
+                                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/90 mb-6 break-words">
+                                    {blog.title}
+                                </h2>
+                            )}
+                            {locale === 'en' && blog.title_np && (
                                 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/90 mb-6 font-nebali break-words">
                                     {blog.title_np}
                                 </h2>
                             )}
-                            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-white/90 text-sm md:text-base">
+                        </div>
+                    </div>
+                </div>
+
+                <div className="wrapper py-12 md:py-20">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        {/* Main Content */}
+                        <article className="lg:col-span-9">
+                            {/* Content Rendered from HTML with whitespace preservation for newlines */}
+                            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-black/90 text-sm md:text-base pb-2">
                                 <div className="flex items-center gap-2">
                                     <Calendar className="w-5 h-5 text-secondary flex-shrink-0" />
                                     <span>{formattedDate}</span>
@@ -153,17 +178,8 @@ export default function BlogDetailPage() {
                                     </div>
                                 )}
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="wrapper py-12 md:py-20">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                        {/* Main Content */}
-                        <article className="lg:col-span-9">
-                            {/* Content Rendered from HTML with whitespace preservation for newlines */}
                             <div
-                                className="prose prose-lg md:prose-xl max-w-none prose-headings:text-primary prose-a:text-secondary prose-img:rounded-2xl whitespace-pre-line text-justify"
+                                className="prose prose-lg md:prose-xl max-w-none prose-headings:text-primary prose-a:text-secondary prose-img:rounded-2xl whitespace-pre-line text-justify pt-2"
                                 dangerouslySetInnerHTML={{ __html: blog.content }}
                             />
 
