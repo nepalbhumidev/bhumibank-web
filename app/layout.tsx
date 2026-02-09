@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import {NextIntlClientProvider} from 'next-intl';
 
@@ -11,35 +12,43 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "Nepal Bhumi Bank Limited",
+    default: "Nepal Bhumi Bank Limited | Transforming Barren Land into Productive Assets",
     template: "%s | Nepal Bhumi Bank Limited",
   },
-  description: "Nepal Bhumi Bank Limited - Your trusted banking partner. Offering comprehensive banking services, digital solutions, and financial products to help you achieve your financial goals.",
+  description:
+    "Nepal Bhumi Bank Limited is pioneering land pooling and modern agricultural management in Nepal. We secure land ownership, convert barren land into productive farms, empower youth agripreneurs, and promote market-led agriculture for national food security.",
   keywords: [
     "Nepal Bhumi Bank",
-    "Banking",
-    "Financial Services",
-    "Nepal Bank",
-    "Digital Banking",
-    "Online Banking",
-    "Banking Solutions",
+    "Land Bank Nepal",
+    "Land Pooling Nepal",
+    "Agricultural Transformation Nepal",
+    "Barren Land Utilization",
+    "Modern Farming Nepal",
+    "Agri Entrepreneurship",
+    "Market Led Agriculture",
+    "Youth in Agriculture Nepal",
+    "Food Security Nepal",
   ],
   authors: [{ name: "Nepal Bhumi Bank Limited" }],
   creator: "Nepal Bhumi Bank Limited",
   publisher: "Nepal Bhumi Bank Limited",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+  ),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "/",
     siteName: "Nepal Bhumi Bank Limited",
-    title: "Nepal Bhumi Bank Limited",
-    description: "Your trusted banking partner offering comprehensive banking services and digital solutions.",
+    title: "Nepal Bhumi Bank Limited | Nepal’s First Land Bank Initiative",
+    description:
+      "Nepal’s first land bank initiative securing land ownership while enabling large-scale, technology-driven, and market-oriented agriculture across the country.",
   },
   twitter: {
     card: "summary_large_image",
-  title: "Nepal Bhumi Bank Limited",
-    description: "Your trusted banking partner offering comprehensive banking services and digital solutions.",
+    title: "Nepal Bhumi Bank Limited | Land Banking for Agricultural Growth",
+    description:
+      "Transforming unused land into productive agricultural assets through land pooling, technology, and market-led farming in Nepal.",
   },
   robots: {
     index: true,
@@ -53,11 +62,11 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add your verification codes here when available
     // google: "your-google-verification-code",
     // yandex: "your-yandex-verification-code",
   },
 };
+
 
 export default function RootLayout({
   children,
@@ -69,6 +78,19 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} antialiased`}
       >
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-M4HLJMP3R9"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-M4HLJMP3R9');
+          `}
+        </Script>
         <NextIntlClientProvider>
           {children}
         </NextIntlClientProvider>
