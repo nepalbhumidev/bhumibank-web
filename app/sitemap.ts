@@ -1,5 +1,8 @@
 import { MetadataRoute } from 'next';
 
+// Force dynamic rendering for sitemap (blog posts change frequently)
+export const dynamic = 'force-dynamic';
+
 interface BlogItem {
     slug: string;
     updated_at: string;
