@@ -10,6 +10,7 @@ interface SEOData {
     meta_title?: string;
     meta_description?: string;
     meta_keywords?: string;
+    canonical_url?: string;
 }
 
 interface BlogDetail {
@@ -77,14 +78,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         blog.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 160);
     const keywords = blog.seo_data?.meta_keywords;
     const imageUrl = blog.image_url;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const canonicalUrl = blog.seo_data?.canonical_url || `${baseUrl}/media/${slug}`;
 
     return {
         title: `${title} | Nepal Bhumi Bank Limited`,
         description,
         keywords: keywords ? keywords.split(',').map(k => k.trim()) : undefined,
+        alternates: {
+            canonical: canonicalUrl,
+        },
         openGraph: {
             title,
             description,
+            url: canonicalUrl,
             images: [
                 {
                     url: imageUrl,

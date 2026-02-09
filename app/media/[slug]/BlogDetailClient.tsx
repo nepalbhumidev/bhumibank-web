@@ -12,6 +12,7 @@ interface SEOData {
     meta_title?: string;
     meta_description?: string;
     meta_keywords?: string;
+    canonical_url?: string;
 }
 
 interface BlogDetail {
