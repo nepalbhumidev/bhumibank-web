@@ -72,25 +72,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         };
     }
 
-    // Use SEO data if available, otherwise fallback to blog data
-    const title = blog.seo_data?.meta_title || blog.title;
-    const description = blog.seo_data?.meta_description || 
+    // SEO meta tags - use SEO data if available
+    const seoTitle = blog.seo_data?.meta_title || blog.title;
+    const seoDescription = blog.seo_data?.meta_description || 
         blog.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 160);
     const keywords = blog.seo_data?.meta_keywords;
+    
+    // Social media sharing - use title_np if available, otherwise title, and use content
+    const socialTitle = blog.title_np || blog.title;
+    const socialDescription = blog.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 160);
+    
     const imageUrl = blog.image_url;
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
     const canonicalUrl = blog.seo_data?.canonical_url || `${baseUrl}/media/${slug}`;
 
     return {
-        title: `${title} | Nepal Bhumi Bank Limited`,
-        description,
+        title: `${seoTitle} | Nepal Bhumi Bank Limited`,
+        description: seoDescription,
         keywords: keywords ? keywords.split(',').map(k => k.trim()) : undefined,
         alternates: {
             canonical: canonicalUrl,
         },
         openGraph: {
-            title,
-            description,
+            title: socialTitle,
+            description: socialDescription,
             url: canonicalUrl,
             images: [
                 {
@@ -106,8 +111,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         },
         twitter: {
             card: 'summary_large_image',
-            title,
-            description,
+            title: socialTitle,
+            description: socialDescription,
             images: [imageUrl],
         },
     };
