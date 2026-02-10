@@ -16,18 +16,19 @@ export const metadata: Metadata = {
     template: "%s | Nepal Bhumi Bank Limited",
   },
   description:
-    "Nepal Bhumi Bank Limited is pioneering land pooling and modern agricultural management in Nepal. We secure land ownership, convert barren land into productive farms, empower youth agripreneurs, and promote market-led agriculture for national food security.",
+    "Nepal Bhumi Bank Limited is pioneering land pooling and modern land investment management in Nepal. We secure land ownership, convert barren land into productive investments, empower youth agripreneurs, and promote market-led investments for national economic growth.",
   keywords: [
     "Nepal Bhumi Bank",
     "Land Bank Nepal",
     "Land Pooling Nepal",
-    "Agricultural Transformation Nepal",
+    "Land Investment Transformation Nepal",
     "Barren Land Utilization",
-    "Modern Farming Nepal",
-    "Agri Entrepreneurship",
-    "Market Led Agriculture",
-    "Youth in Agriculture Nepal",
     "Food Security Nepal",
+    "Bhumi Bank",
+    "Rastriya Bhumi Bank",
+    "Rastriya Bhumi Bank Limited",
+    "Rastriya Bhumi Bank Limited Nepal",
+    "Bhumi",
   ],
   authors: [{ name: "Nepal Bhumi Bank Limited" }],
   creator: "Nepal Bhumi Bank Limited",
@@ -35,6 +36,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
   ),
+  icons: {
+    icon: "/nbb-logo.png",
+    shortcut: "/nbb-logo.png",
+    apple: "/nbb-logo.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -42,13 +48,22 @@ export const metadata: Metadata = {
     siteName: "Nepal Bhumi Bank Limited",
     title: "Nepal Bhumi Bank Limited | Nepal’s First Land Bank Initiative",
     description:
-      "Nepal’s first land bank initiative securing land ownership while enabling large-scale, technology-driven, and market-oriented agriculture across the country.",
+      "Nepal’s first land bank initiative securing land ownership while enabling large-scale, technology-driven, and market-oriented investments in the country.",
+    images: [
+      {
+        url: "/nbb-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Nepal Bhumi Bank Limited",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nepal Bhumi Bank Limited | Land Banking for Agricultural Growth",
+    title: "Nepal Bhumi Bank Limited | Land Banking for Investment Growth",
     description:
-      "Transforming unused land into productive agricultural assets through land pooling, technology, and market-led farming in Nepal.",
+      "Transforming unused land into productive investment assets through land pooling, technology, and market-led investments in Nepal.",
+    images: ["/nbb-logo.png"],
   },
   robots: {
     index: true,
