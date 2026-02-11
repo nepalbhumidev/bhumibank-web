@@ -525,7 +525,7 @@ const ShareForm = () => {
           <p className="text-sm md:text-base text-gray-700 leading-relaxed text-justify">
             {t('declaration')}
           </p>
-        </div>
+            </div>
 
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
           {/* Personal Information Section */}
@@ -550,7 +550,7 @@ const ShareForm = () => {
                   disabled={isSubmitting}
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-gray-100"
                 />
-              </div>
+          </div>
 
               <div>
                 <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-2">
@@ -1716,7 +1716,7 @@ const ShareForm = () => {
                 {fileErrors.citizenshipPassportDocument && (
                   <p className="mt-1 text-sm text-red-600">{fileErrors.citizenshipPassportDocument}</p>
                 )}
-              </div>
+          </div>
 
               {/* National Identity Document */}
               <div>
@@ -1791,9 +1791,9 @@ const ShareForm = () => {
                 {fileErrors.nomineeCitizenshipDocument && (
                   <p className="mt-1 text-sm text-red-600">{fileErrors.nomineeCitizenshipDocument}</p>
                 )}
-              </div>
             </div>
           </div>
+        </div>
 
           {/* Success Message */}
           {submitStatus === 'success' && (

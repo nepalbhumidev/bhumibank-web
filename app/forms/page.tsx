@@ -73,7 +73,7 @@ export default function FormsPage() {
                   <div className="text-xs text-gray-700 space-y-1">
                     <p className="font-semibold text-gray-900">Bank Account Details</p>
                     <p>Global IME Bank</p>
-                    <p>2222030020523424</p>
+                    <p>18101010005944</p>
                     <p>NEREPHAT BRANCH</p>
                   </div>
                 </div>
