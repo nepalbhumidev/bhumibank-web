@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useTranslations } from 'next-intl';
@@ -45,15 +46,39 @@ export default function FormsPage() {
         <div className="wrapper py-8 md:py-12 lg:py-16">
           {/* Header */}
           <div className="mb-12">
-            <div className="inline-block">
-              <h1 className="text-4xl lg:text-5xl font-bold text-primary mb-2">
-                {t('heading')}
-              </h1>
-              <ColorBand leftColor="primary" rightColor="secondary" />
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              <div className="flex-1">
+                <div className="inline-block">
+                  <h1 className="text-4xl lg:text-5xl font-bold text-primary mb-2">
+                    {t('heading')}
+                  </h1>
+                  <ColorBand leftColor="primary" rightColor="secondary" />
+                </div>
+                <p className="mt-4 text-gray-600 text-base md:text-lg max-w-3xl">
+                  {t('subtitle')}
+                </p>
+              </div>
+              
+              {/* Bank Account QR Code */}
+              <div className="flex-shrink-0 bg-white p-3 rounded-lg shadow-xs border border-gray-200">
+                <div className="flex items-center gap-2">
+                  <div className="flex-shrink-0">
+                    <Image
+                      src="/bhumi-bank-acc.jpeg"
+                      alt="Bank Account QR Code"
+                      width={150}
+                      height={150}
+                    />
+                  </div>
+                  <div className="text-xs text-gray-700 space-y-1">
+                    <p className="font-semibold text-gray-900">Bank Account Details</p>
+                    <p>Global IME Bank</p>
+                    <p>2222030020523424</p>
+                    <p>NEREPHAT BRANCH</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="mt-4 text-gray-600 text-base md:text-lg max-w-3xl">
-              {t('subtitle')}
-            </p>
           </div>
 
           {/* Tabs */}
