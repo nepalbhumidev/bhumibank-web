@@ -32,8 +32,8 @@ const menuItems: MenuItem[] = [
   { name: 'News/Media', href: '/admin/dashboard/media', icon: <ImageIcon className="w-5 h-5" /> },
   { name: 'Videos', href: '/admin/dashboard/videos', icon: <Video className="w-5 h-5" /> },
   { name: 'Gallery', href: '/admin/dashboard/gallery', icon: <Images className="w-5 h-5" /> },
-  { name: 'Membership', href: '/admin/dashboard/applications', icon: <Users className="w-5 h-5" /> },
-  { name: 'Share Purchase', href: '/admin/dashboard/share-applications', icon: <TrendingUp className="w-5 h-5" /> },
+  { name: 'Membership Forms', href: '/admin/dashboard/applications', icon: <Users className="w-5 h-5" /> },
+  { name: 'Share Forms', href: '/admin/dashboard/share-applications', icon: <TrendingUp className="w-5 h-5" /> },
 ];
 
 export default function DashboardLayout({
