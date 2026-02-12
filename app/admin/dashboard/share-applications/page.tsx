@@ -21,6 +21,8 @@ import {
 } from 'lucide-react';
 import { apiGet, apiDelete } from '@/lib/api-client';
 import Image from 'next/image';
+import { generateShareApplicationPDF } from '@/lib/pdf-generator';
+import { Download } from 'lucide-react';
 
 interface ShareApplication {
   id: string;
@@ -1209,7 +1211,7 @@ export default function ShareApplicationsPage() {
             </div>
 
             {/* Modal Footer */}
-            <div className="sticky bottom-0 bg-white border-t border-gray-200 px-6 py-4 flex items-center justify-between">
+            <div className="sticky bottom-0 bg-white border-t border-gray-200 px-6 py-4 flex items-center justify-between gap-4">
               <button
                 type="button"
                 onClick={() => {
@@ -1221,16 +1223,28 @@ export default function ShareApplicationsPage() {
                 <Trash2 className="w-4 h-4" />
                 Delete Application
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDetailModalOpen(false);
-                  setSelectedApplication(null);
-                }}
-                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-              >
-                Close
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await generateShareApplicationPDF(selectedApplication);
+                  }}
+                  className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary/10 transition-colors inline-flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  Download PDF
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsDetailModalOpen(false);
+                    setSelectedApplication(null);
+                  }}
+                  className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
