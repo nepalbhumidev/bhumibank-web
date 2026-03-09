@@ -115,6 +115,16 @@
         "heading": "Notices",
         "subtitle": "Stay updated with the latest notices and announcements about Nepal Bhumi Bank Limited."
     },
+    "PublicationPage": {
+        "heading": "Publications",
+        "subtitle": "Browse our publications, annual reports, and other important documents from Nepal Bhumi Bank Limited.",
+        "noPublications": "No publications available",
+        "checkBackLater": "Check back later for updates",
+        "viewPdf": "View PDF",
+        "openPdf": "Open PDF document",
+        "pdfDocument": "PDF document",
+        "publishedOn": "Published on"
+    },
     "GalleryPage": {
         "heading": "Gallery",
         "subtitle": "Explore our photo gallery showcasing our projects, developments, and company activities."
