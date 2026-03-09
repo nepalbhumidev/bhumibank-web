@@ -200,7 +200,7 @@
         },
         "membership": {
             "heading": "Membership Application Form",
-            "declaration": "I/We wish to register in the \"Handemalo Campaign\" of Nepal Bhumi Bank Ltd. Having seen, understood, and been informed, I will take the services and facilities provided by this bank under the said campaign by paying a one-time service fee of Rs. 25,000/- (Twenty-Five Thousand Rupees Only) willingly and voluntarily without asking for a refund later. I hereby declare that I will not ask for a refund of the said amount and have filled/submitted this registration form.",
+            "declaration": "I/We wish to register in the \"Handemalo Campaign\" of Nepal Bhumi Bank Ltd. Having seen, understood, and been informed, I will take the services and facilities provided by this bank under the said campaign by paying a one-time service fee of Rs. 25,000/- (Rs. 75,000/- for institutions) willingly and voluntarily without asking for a refund later. I hereby declare that I will not ask for a refund of the said amount and have filled/submitted this registration form.",
             "fields": {
                 "personalInformation": "Personal Information",
                 "nameNepali": "Name (Nepali)",
